@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrea Signoretti — AI-Human Augmented Reasoning</title>
+<meta name="description" content="Andrea Signoretti — engineering student at École Polytechnique and researcher-in-training in multi-agent and neuro-symbolic systems, building AI that reasons with people rather than instead of them.">
+<meta name="author" content="Andrea Signoretti">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Andrea Signoretti — AI-Human Augmented Reasoning">
+<meta property="og:description" content="The chart of a journey toward AI-human augmented reasoning: where it started, what I've built, and the heading I've set.">
+<meta property="og:image" content="assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================ NAV ============================ -->
+<nav aria-label="Primary">
+  <a class="mark" href="#top">A. Signoretti</a>
+  <ul>
+    <li><a href="#route">Route</a></li>
+    <li><a href="#soundings">Soundings</a></li>
+    <li><a href="#compass">Compass</a></li>
+    <li><a href="#fix">The Fix</a></li>
+    <li><a href="#harbour">Harbour</a></li>
+  </ul>
+  <details class="nav-menu">
+    <summary aria-label="Open navigation menu">Chart ▾</summary>
+    <ul>
+      <li><a href="#route">Route</a></li>
+      <li><a href="#soundings">Soundings</a></li>
+      <li><a href="#compass">Compass</a></li>
+      <li><a href="#fix">The Fix</a></li>
+      <li><a href="#harbour">Harbour</a></li>
+    </ul>
+  </details>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<header id="top">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="coord">43°42′N · 7°16′E — POINT OF DEPARTURE</p>
+
+      <h1>Andrea Signoretti</h1>
+
+      <div class="hero-id">
+        <a class="handle mono" href="https://github.com/Blackbull11" target="_blank" rel="noopener">@Blackbull11</a>
+        <span class="poly-badge">
+          <span class="poly-logo" aria-hidden="true"></span>
+          <span class="mono">École Polytechnique · X24</span>
+        </span>
+      </div>
+
+      <p class="hero-tagline serif">Navigating toward <em>AI-human augmented reasoning</em>.</p>
+
+      <p class="hero-sub">I'm Andrea Signoretti — engineering student at École Polytechnique, researcher-in-training in multi-agent and neuro-symbolic systems. I build AI that reasons <em>with</em> people rather than instead of them. This page is the chart of that journey: where it started, what I've built along the way, and the heading I've set.</p>
+    </div>
+
+    <figure class="portrait-frame">
+      <div class="portrait" role="img" aria-label="Portrait of Andrea Signoretti">
+        <span class="portrait-fallback" aria-hidden="true">AS</span>
+      </div>
+      <figcaption class="mono">CAPTAIN'S LOG · X24 · PARIS</figcaption>
+    </figure>
+  </div>
+
+  <p class="scroll-cue mono" id="scrollCue">SCROLL — FOLLOW THE ROUTE ↓</p>
+
+  <!-- Sea: layered waves + boat riding the front wave, carrying the captain's badge -->
+  <div class="sea" aria-hidden="true">
+    <div class="boat" id="heroBoat">
+      <div class="captain" role="img" aria-label="Andrea on the boat"></div>
+      <svg width="118" height="96" viewBox="0 0 120 96" fill="none">
+        <path d="M62 10 V70" stroke="#0C2233" stroke-width="1.5"/>
+        <path d="M62 12 L62 66 L26 66 Z" stroke="#0C2233" stroke-width="1.5" fill="#F2F7F9"/>
+        <path d="M66 20 L66 66 L96 66 Z" stroke="#1F6E8C" stroke-width="1.5" fill="none"/>
+        <path d="M18 72 H104 L92 88 H32 Z" stroke="#0C2233" stroke-width="1.5" fill="#F2F7F9"/>
+        <path d="M62 10 L74 13 L62 17" stroke="#1F6E8C" stroke-width="1.2" fill="none"/>
+      </svg>
+    </div>
+    <svg class="waves w2" viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <path d="M0 90 Q 90 60 180 90 T 360 90 T 540 90 T 720 90 T 900 90 T 1080 90 T 1260 90 T 1440 90 V200 H0 Z" fill="#C9E0E8"/>
+    </svg>
+    <svg class="waves w1" viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <path d="M0 120 Q 120 92 240 120 T 480 120 T 720 120 T 960 120 T 1200 120 T 1440 120 V200 H0 Z" fill="#DCEBF0"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============================ MAIN / ROUTE ============================ -->
+<main id="main">
+  <div class="route" aria-hidden="true"></div>
+
+  <!-- Route progress boat: sits on the line, moves with scroll -->
+  <div class="route-boat" id="routeBoat" aria-hidden="true">
+    <div class="route-face"></div>
+    <svg width="26" height="26" viewBox="0 0 120 96" fill="none">
+      <path d="M62 10 V70" stroke="#0C2233" stroke-width="3"/>
+      <path d="M62 12 L62 66 L26 66 Z" stroke="#0C2233" stroke-width="3" fill="#F2F7F9"/>
+      <path d="M66 20 L66 66 L96 66 Z" stroke="#1F6E8C" stroke-width="3" fill="none"/>
+      <path d="M18 72 H104 L92 88 H32 Z" stroke="#0C2233" stroke-width="3" fill="#F2F7F9"/>
+    </svg>
+  </div>
+
+  <!-- ---------- WPT 01 · Journal de bord ---------- -->
+  <section id="route" aria-labelledby="route-h" class="reveal">
+    <span class="wp" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
+    </span>
+    <p class="coord-line">WPT 01 · 48°51′N 2°21′E — THE ROUTE SO FAR</p>
+    <h2 id="route-h">Journal de bord</h2>
+    <p class="section-note">Every position on a chart comes from the positions before it. Experience and education, plotted in order.</p>
+
+    <div class="ports">
+      <article class="port reveal">
+        <div class="when mono">2025 — 2026<br><span class="place">Paris</span></div>
+        <div>
+          <h3>Student Researcher — Orange Innovation</h3>
+          <p>Researching multi-agent synergistic control on knowledge graphs to automate network maintenance: JaCaMo agent systems over RDF/OWL knowledge graphs, with neuro-symbolic constraints that keep anomaly detection explainable without giving up runtime efficiency. Co-authoring a research paper on multi-agent synergistic reasoning, targeting a 2026 submission.</p>
+        </div>
+      </article>
+
+      <article class="port reveal">
+        <div class="when mono">2024 — 2025<br><span class="place">Strasbourg</span></div>
+        <div>
+          <h3>Full-Stack Developer (Intern) — French Military Intelligence</h3>
+          <p>Designed and shipped a secure data-collection platform (PHP, SQL, TypeScript) now used by six military intelligence agencies — cutting manual intake by 80%. Authored an AI adoption plan for unit executives and curated a training dataset for a domestic model PoC. Awarded an official commendation letter from the Ministry of the Armed Forces.</p>
+        </div>
+      </article>
+
+      <article class="port reveal">
+        <div class="when mono">2024 — 2028<br><span class="place">Paris</span></div>
+        <div>
+          <h3>École Polytechnique (X24) — Cycle Ingénieur Polytechnicien</h3>
+          <p>Applied Mathematics &amp; Computer Science (M.Sc.-level, graduating 2028). Statistics, optimal control, machine learning, algorithms, theory of computation, advanced probability. Applied projects in deep learning for computer vision and synergistic reasoning in multi-agent systems.</p>
+        </div>
+      </article>
+
+      <article class="port reveal">
+        <div class="when mono">2022 — 2024<br><span class="place">Paris</span></div>
+        <div>
+          <h3>Lycée Henri IV — Classes Préparatoires (MPSI/MP*)</h3>
+          <p>Two years of intensive mathematics, theoretical computer science, and physics for the national competitive entrance exams.</p>
+        </div>
+      </article>
+
+      <article class="port reveal">
+        <div class="when mono">2019 — 2022<br><span class="place">Nice</span></div>
+        <div>
+          <h3>Institut Stanislas — Scientific Baccalaureate with honors</h3>
+          <p>2nd prize, National Mathematics Olympiad; 1st prize, High School Rhetoric Contest. The departure point.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ---------- WPT 02 · Soundings ---------- -->
+  <section id="soundings" aria-labelledby="soundings-h" class="reveal">
+    <span class="wp" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
+    </span>
+    <p class="coord-line">WPT 02 · 48°35′N 7°45′E — SOUNDINGS</p>
+    <h2 id="soundings-h">Soundings</h2>
+    <p class="section-note">Depth measurements taken along the way — selected projects and builds.</p>
+
+    <div class="grid">
+      <a class="card reveal" href="https://github.com/Blackbull11/MASynReas" target="_blank" rel="noopener">
+        <span class="tag">RESEARCH · MULTI-AGENT</span>
+        <h3>Multi-Agent Synergistic Reasoning</h3>
+        <p>Novel frameworks for coordination and selection between agents on knowledge graphs, under neuro-symbolic explainability constraints. Ongoing research at Orange Innovation; paper in preparation.</p>
+        <span class="card-link mono">VIEW REPO →</span>
+      </a>
+
+      <a class="card reveal" href="https://github.com/Blackbull11/OverSearch" target="_blank" rel="noopener">
+        <span class="tag">RESEARCH TOOL · LLM + OCR</span>
+        <h3>OverSearch</h3>
+        <p>An all-in-one workspace for scholars: an ergonomic dashboard augmented with an LLM-powered research engine and OCR that pulls data straight from papers. Built in React — the tool I wanted in prépa.</p>
+        <span class="card-link mono">VIEW REPO →</span>
+      </a>
+
+      <article class="card reveal">
+        <span class="tag">FREELANCE · NLP</span>
+        <h3>Lab Secretary Companion</h3>
+        <p>Co-developing the MVP of an automated secretary for biological analysis laboratories: NLP, symbolic AI, OCR, data pipelines, REST API.</p>
+      </article>
+
+      <article class="card reveal">
+        <span class="tag">DEFENSE · FULL-STACK</span>
+        <h3>Secure Intelligence Platform</h3>
+        <p>Data-collection platform adopted by six agencies; ~500 references collected in three months, 80% less manual intake. Commended by the Ministry of the Armed Forces.</p>
+      </article>
+
+      <article class="card reveal">
+        <span class="tag">APPLIED PROJECT · CV</span>
+        <h3>Deep Learning for Computer Vision</h3>
+        <p>Applied coursework project at Polytechnique on modern vision architectures.</p>
+      </article>
+
+      <a class="card reveal" href="https://github.com/Blackbull11/hackdays2025" target="_blank" rel="noopener">
+        <span class="tag">HACKATHONS · AGENTS</span>
+        <h3>Agentic Systems PoCs</h3>
+        <p>Three competitive hackathons: agentic systems, RAG pipelines, and MLOps practice with industry mentors.</p>
+        <span class="card-link mono">VIEW REPO →</span>
+      </a>
+
+      <article class="card reveal">
+        <span class="tag">LEADERSHIP</span>
+        <h3>XProjets &amp; X-Forum</h3>
+        <p>Vice-President of Polytechnique's €200K Junior-Entreprise (business development &amp; corporate relations); Head of IT for the school's 1000+ attendee career fair.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ---------- WPT 03 · The Compass ---------- -->
+  <section id="compass" aria-labelledby="compass-h" class="reveal">
+    <span class="wp" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
+    </span>
+    <p class="coord-line">WPT 03 — THE COMPASS</p>
+    <h2 id="compass-h">The Compass <span class="serif sub">— what the needle knows</span></h2>
+    <p class="section-note">Everything I've worked with, arranged by bearing. Hover a word: the needle finds it.</p>
+
+    <!-- Desktop radial composition (built + positioned by JS) -->
+    <div class="compass-radial" aria-hidden="true">
+      <div class="compass-stage" id="compassStage">
+        <svg class="compass-rose" viewBox="0 0 200 200" width="200" height="200">
+          <circle cx="100" cy="100" r="94" fill="none" stroke="#0C2233" stroke-width="1" opacity=".5"/>
+          <circle cx="100" cy="100" r="60" fill="none" stroke="#0C2233" stroke-width="1" opacity=".3"/>
+          <!-- cardinal diamonds -->
+          <path d="M100 12 L108 100 L100 100 Z" fill="#1F6E8C"/>
+          <path d="M100 12 L92 100 L100 100 Z" fill="#1F6E8C" opacity=".65"/>
+          <path d="M188 100 L100 92 L100 100 Z" fill="#0C2233" opacity=".7"/>
+          <path d="M188 100 L100 108 L100 100 Z" fill="#0C2233" opacity=".5"/>
+          <path d="M100 188 L92 100 L100 100 Z" fill="#0C2233" opacity=".7"/>
+          <path d="M100 188 L108 100 L100 100 Z" fill="#0C2233" opacity=".5"/>
+          <path d="M12 100 L100 108 L100 100 Z" fill="#0C2233" opacity=".7"/>
+          <path d="M12 100 L100 92 L100 100 Z" fill="#0C2233" opacity=".5"/>
+          <!-- cardinal letters -->
+          <text x="100" y="34" text-anchor="middle" class="rose-letter" fill="#1F6E8C">N</text>
+          <text x="176" y="105" text-anchor="middle" class="rose-letter" fill="#0C2233">E</text>
+          <text x="100" y="180" text-anchor="middle" class="rose-letter" fill="#0C2233">S</text>
+          <text x="24" y="105" text-anchor="middle" class="rose-letter" fill="#0C2233">W</text>
+          <!-- needle -->
+          <g id="needle" style="transform-origin:100px 100px">
+            <path d="M100 22 L106 100 L100 108 Z" fill="#1F6E8C"/>
+            <path d="M100 22 L94 100 L100 108 Z" fill="#155268"/>
+            <path d="M100 178 L106 100 L100 92 Z" fill="#0C2233" opacity=".75"/>
+            <path d="M100 178 L94 100 L100 92 Z" fill="#0C2233" opacity=".55"/>
+            <circle cx="100" cy="100" r="5" fill="#F2F7F9" stroke="#0C2233" stroke-width="1.2"/>
+          </g>
+        </svg>
+        <!-- words injected here by JS -->
+      </div>
+    </div>
+
+    <!-- Mobile tag-group fallback (built by JS) -->
+    <div class="compass-tags" id="compassTags"></div>
+  </section>
+
+  <!-- ---------- WPT 04 · The Fix ---------- -->
+  <section id="fix" aria-labelledby="fix-h" class="reveal">
+    <span class="wp" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
+    </span>
+    <p class="coord-line">WPT 04 — DESTINATION: WHERE TWO MINDS CROSS</p>
+    <h2 id="fix-h">The Fix <span class="serif sub">— two bearings, one position</span></h2>
+    <p class="section-note wide">In coastal navigation, one bearing gives you a line of position — you could be anywhere along it. Two bearings, taken from different landmarks, cross at a fix. I think human judgment and machine reasoning work the same way, and it's the problem I want to spend my career on: systems where neither mind navigates alone.</p>
+
+    <div class="fix-wrap">
+      <div class="fix-controls">
+        <h3>Try it</h3>
+        <p class="fix-instr">Where is the boat? Switch between what each navigator sees alone, and what they see together.</p>
+        <div class="modes" role="group" aria-label="Choose a reasoning mode">
+          <button id="mh" class="on" type="button">Human alone</button>
+          <button id="ma" type="button">AI alone</button>
+          <button id="mb" type="button">Together</button>
+        </div>
+        <p class="fix-caption" id="cap" aria-live="polite"><b>One bearing, one line.</b> Human intuition points in the right direction — but alone, the position stays uncertain anywhere along the line.</p>
+      </div>
+
+      <svg id="fixChart" viewBox="0 0 640 420" role="img" aria-label="Navigation chart: a human bearing and an AI bearing cross at a fix that locates a boat neither bearing could pinpoint alone.">
+        <defs>
+          <pattern id="g" width="52" height="52" patternUnits="userSpaceOnUse">
+            <path d="M52 0H0V52" fill="none" stroke="rgba(12,34,51,.07)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="640" height="420" fill="url(#g)"/>
+
+        <!-- Human lighthouse (bottom-left) -->
+        <g transform="translate(60,330)">
+          <path d="M0 0 L-8 22 H8 Z" fill="#0C2233"/>
+          <circle cx="0" cy="-6" r="4" fill="#1F6E8C"/>
+          <text x="0" y="42" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#0C2233">HUMAN</text>
+        </g>
+        <!-- AI lighthouse (bottom-right) -->
+        <g transform="translate(560,300)">
+          <path d="M0 0 L-8 22 H8 Z" fill="#0C2233"/>
+          <circle cx="0" cy="-6" r="4" fill="#1F6E8C"/>
+          <text x="0" y="42" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#0C2233">AI</text>
+        </g>
+
+        <!-- Human bearing -->
+        <g id="gh">
+          <path class="wedge" d="M60 330 L300 78 L370 160 Z" fill="rgba(31,110,140,.10)"/>
+          <line class="bearing" x1="60" y1="330" x2="330" y2="120" stroke="#1F6E8C" stroke-width="2"/>
+          <text x="150" y="222" font-family="Space Mono, monospace" font-size="10" fill="#1F6E8C" transform="rotate(-38 150 222)">bearing 038°</text>
+        </g>
+
+        <!-- AI bearing -->
+        <g id="ga" class="hidden">
+          <path class="wedge" d="M560 300 L290 90 L370 60 Z" fill="rgba(127,182,198,.16)"/>
+          <line class="bearing" x1="560" y1="300" x2="330" y2="120" stroke="#7FB6C6" stroke-width="2"/>
+          <text x="470" y="200" font-family="Space Mono, monospace" font-size="10" fill="#5E7B88" transform="rotate(38 470 200)">bearing 308°</text>
+        </g>
+
+        <!-- The fix -->
+        <g id="gf" class="hidden">
+          <circle class="fixpt" cx="330" cy="120" r="16" fill="none" stroke="#1F6E8C" stroke-width="1.4" stroke-dasharray="3 3"/>
+          <g transform="translate(312,96) scale(.34)">
+            <path d="M62 10 V70" stroke="#0C2233" stroke-width="3"/>
+            <path d="M62 12 L62 66 L26 66 Z" stroke="#0C2233" stroke-width="3" fill="#F2F7F9"/>
+            <path d="M66 20 L66 66 L96 66 Z" stroke="#1F6E8C" stroke-width="3" fill="none"/>
+            <path d="M18 72 H104 L92 88 H32 Z" stroke="#0C2233" stroke-width="3" fill="#F2F7F9"/>
+          </g>
+          <text x="330" y="158" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" fill="#1F6E8C">FIX</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+</main>
+
+<!-- ============================ FOOTER · Safe harbour ============================ -->
+<footer id="harbour" aria-labelledby="harbour-h">
+  <div class="footer-top">
+    <p class="big serif" id="harbour-h">Safe harbour — <a href="mailto:andrea.signoretti@polytechnique.edu">andrea.signoretti@polytechnique.edu</a></p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/andrea-signoretti/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/Blackbull11" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="cv.pdf" target="_blank" rel="noopener">CV (PDF) ↗</a>
+    </div>
+  </div>
+  <div class="footer-fine mono">
+    <span>Paris, France · English · Français · Italiano</span>
+    <span>© 2026 Andrea Signoretti — chart drawn by hand, course still being plotted.</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

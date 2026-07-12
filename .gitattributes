@@ -1,0 +1,16 @@
+# Keep binary assets byte-for-byte (no line-ending conversion)
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+
+# Normalize text sources to LF
+*.html  text eol=lf
+*.css   text eol=lf
+*.js    text eol=lf
+*.svg   text eol=lf
+*.md    text eol=lf
