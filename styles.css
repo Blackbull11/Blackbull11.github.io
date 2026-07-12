@@ -49,6 +49,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js .reveal{opacity:1!important;transform:none!important}
   .route-boat{display:none!important}
+  #preloader{display:none!important}   /* no wave reveal — show page immediately */
 }
 
 /* ============================ NAV ============================ */
@@ -169,8 +170,10 @@ h1{
 /* Sea: waves + hero boat */
 .sea{position:absolute;left:0;right:0;bottom:0;height:34vh;min-height:220px;pointer-events:none;z-index:4}
 .sea svg.waves{position:absolute;bottom:0;left:0;width:200%;height:100%}
-.w1{animation:drift 26s linear infinite}
-.w2{animation:drift 38s linear infinite reverse;opacity:.85}
+.w0{animation:drift 13s linear infinite;opacity:.55}
+.w1{animation:drift 20s linear infinite}
+.w2{animation:drift 28s linear infinite reverse, shimmer 6s ease-in-out infinite;opacity:.85}
+@keyframes shimmer{0%,100%{opacity:.85}50%{opacity:.58}}
 @keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 .boat{
@@ -183,12 +186,11 @@ h1{
 }
 /* captain's face sticker, riding above the hull */
 .captain{
-  position:absolute;left:50%;top:-30px;transform:translateX(-50%);
-  width:44px;height:44px;border-radius:50%;overflow:hidden;
-  border:2px solid var(--ink);background:
-    url('assets/face.png') center/cover no-repeat,
-    radial-gradient(circle at 50% 40%,#a9d3de,#1F6E8C);
-  box-shadow:0 4px 10px rgba(12,34,51,.2);z-index:2;
+  position:absolute; rotate(100deg);left:5%;top:5px;transform:rotate(-30deg);
+  width:44px;height:64px;overflow:hidden;
+  border:0px solid var(--ink);background:
+    url('assets/sticker.png') center/cover no-repeat,
+    radial-gradient(circle at 50% 40%,#a9d3de00,#1f6d8c00);z-index:2;
 }
 .captain::after{ /* life-ring tick marks */
   content:"";position:absolute;inset:-2px;border-radius:50%;
@@ -209,7 +211,7 @@ main{position:relative;max-width:1150px;margin:0 auto;padding:0 8vw}
 .route-face{
   width:20px;height:20px;border-radius:50%;overflow:hidden;margin-bottom:-2px;
   border:1.5px solid var(--ink);background:
-    url('assets/face.png') center/cover no-repeat,
+    url('assets/sticker.png') center/cover no-repeat,
     radial-gradient(circle at 50% 40%,#a9d3de,#1F6E8C);
 }
 
@@ -326,8 +328,10 @@ a.card:hover .card-link{opacity:1}
 
 /* ============================ FOOTER ============================ */
 footer{
-  max-width:1150px;margin:0 auto;padding:5rem 8vw 3rem;border-top:1px solid var(--hair);
+  max-width:1150px;margin:0 auto;padding:5.5rem 8vw 3rem;
+  position:relative;overflow:hidden;
 }
+.footer-top,.footer-fine{position:relative;z-index:1}
 .footer-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem}
 footer .big{font-size:clamp(1.5rem,3vw,2.3rem);line-height:1.2}
 footer .big a{color:var(--ocean)}
@@ -376,3 +380,72 @@ footer .links a:hover{color:var(--ocean)}
   .hero-id{gap:.5rem}
   .fix-wrap{padding:1.4rem}
 }
+
+/* ============================================================
+   WAVE ENHANCEMENTS
+   preloader reveal · title underlines · compass sonar · harbour
+   ============================================================ */
+
+/* ---------- Preloader: ocean drains upward behind a wave crest ---------- */
+#preloader{
+  position:fixed;inset:0;z-index:1000;overflow:hidden;
+  transform:translateY(0);
+  transition:transform 1.3s cubic-bezier(.76,0,.24,1);
+  will-change:transform;
+}
+#preloader.done{transform:translateY(-112%)}
+.pl-fill{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,#2E8199 0%,#1B6076 45%,#0C2233 100%);
+}
+/* wave crest hangs just below the panel; becomes the receding waterline */
+.pl-wave{
+  position:absolute;left:-10%;top:100%;width:120%;height:15vh;min-height:96px;
+  animation:plDrift 8s ease-in-out infinite;
+}
+.pl-wave path{stroke:none}
+.pl-front path{fill:#0C2233}
+.pl-back{animation-duration:11s;opacity:.85}
+.pl-back path{fill:#123A50}
+.pl-back{top:calc(100% - 10px)}
+@keyframes plDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(-6%)}}
+.pl-brand{
+  position:absolute;left:0;right:0;top:44%;transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:1.1rem;z-index:2;
+  transition:opacity .45s ease;
+}
+#preloader.done .pl-brand{opacity:0}
+.pl-boat{animation:bob 3.4s ease-in-out infinite;transform-origin:50% 100%}
+.pl-text{
+  color:#9FC6D3;font-size:.68rem;letter-spacing:.3em;
+  animation:plPulse 1.9s ease-in-out infinite;
+}
+@keyframes plPulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* ---------- Animated wavy underline beneath each section title ---------- */
+main section > h2::after{
+  content:"";display:block;height:8px;width:120px;margin-top:.7rem;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 8'%3E%3Cpath d='M0 5 Q4.5 1 9 5 T18 5 T27 5 T36 5' fill='none' stroke='%231F6E8C' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:repeat-x;background-size:36px 8px;background-position:0 50%;
+  opacity:.95;animation:uDrift 1.8s linear infinite;
+}
+@keyframes uDrift{to{background-position-x:36px}}
+
+/* ---------- Compass sonar pings ---------- */
+.sonar{
+  transform-box:view-box;transform-origin:100px 100px;
+  fill:none;stroke:var(--ocean);stroke-width:1.3;opacity:0;
+  animation:sonar 2.8s ease-out infinite;
+}
+.sonar.d2{animation-delay:1.4s}
+@keyframes sonar{
+  0%{transform:scale(.26);opacity:.65}
+  70%{opacity:0}
+  100%{transform:scale(1.02);opacity:0}
+}
+
+/* ---------- Harbour waterline above the footer ---------- */
+.harbour-waves{position:absolute;top:0;left:0;right:0;height:56px;pointer-events:none;z-index:0}
+.harbour-waves .hw{position:absolute;bottom:0;left:0;width:200%;height:100%}
+.harbour-waves .hw-back{fill:var(--wave2);opacity:1;animation:drift 18s linear infinite reverse}
+.harbour-waves .hw-front{fill:var(--wave1);animation:drift 13s linear infinite}

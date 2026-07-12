@@ -10,6 +10,27 @@
   var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var IO = 'IntersectionObserver' in window;
 
+  /* ---------- Preloader: wave reveal ---------- */
+  var pre = document.getElementById('preloader');
+  if (pre) {
+    var revealed = false;
+    var hide = function () { pre.style.display = 'none'; };
+    var reveal = function () {
+      if (revealed) return; revealed = true;
+      if (REDUCE) { hide(); return; }
+      pre.classList.add('done');
+      pre.addEventListener('transitionend', function (e) {
+        if (e.target === pre && e.propertyName === 'transform') hide();
+      });
+      setTimeout(hide, 1700);            // fallback if transitionend is missed
+    };
+    var MIN = 1600, t0 = performance.now();
+    var kick = function () { setTimeout(reveal, Math.max(0, MIN - (performance.now() - t0))); };
+    if (document.readyState === 'complete') kick();
+    else window.addEventListener('load', kick);
+    setTimeout(reveal, 5000);            // hard safety: never trap the page
+  }
+
   /* ---------- Scroll reveals (staggered) ---------- */
   var reveals = [].slice.call(document.querySelectorAll('.reveal'));
   var counts = new Map();
