@@ -480,26 +480,6 @@
     sail();
   }
 
-  /* ---------- Nav name: only once the hero's h1 has scrolled under the nav ---------- */
-  var mark = document.querySelector('nav .mark');
-  var heroName = document.querySelector('header h1');
-  if (mark && heroName && IO) {
-    var navEl = document.querySelector('nav');
-    var markObs = null;
-    var watchName = function () {
-      if (markObs) markObs.disconnect();
-      markObs = new IntersectionObserver(function (entries) {
-        var e = entries[0];
-        mark.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0);
-      }, { rootMargin: '-' + navEl.offsetHeight + 'px 0px 0px 0px' });
-      markObs.observe(heroName);
-    };
-    watchName();
-    window.addEventListener('resize', watchName, { passive: true });
-  } else if (mark) {
-    mark.classList.add('show');
-  }
-
   /* Close mobile menu on link click */
   var menu = document.querySelector('.nav-menu');
   if (menu) {
