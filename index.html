@@ -21,7 +21,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="styles.css">
+<link rel="preload" href="assets/wave-intro-hd.mp4" as="video" type="video/mp4">
+<link rel="stylesheet" href="styles.css?v=14">
 <noscript><style>#preloader{display:none!important}</style></noscript>
 </head>
 <body>
@@ -31,40 +32,55 @@
 <!-- ==================== PRELOADER · wave reveal ==================== -->
 <div id="preloader" aria-hidden="true">
   <div class="pl-fill"></div>
-  <svg class="pl-wave pl-back" viewBox="0 0 1440 90" preserveAspectRatio="none">
-    <path d="M0,0 H1440 V44 C1200,14 960,74 720,44 C480,16 240,72 0,44 Z"></path>
-  </svg>
-  <svg class="pl-wave pl-front" viewBox="0 0 1440 90" preserveAspectRatio="none">
-    <path d="M0,0 H1440 V54 C1220,86 980,20 720,54 C500,82 240,22 0,54 Z"></path>
-  </svg>
-  <div class="pl-brand">
-    <svg class="pl-boat" width="120" height="96" viewBox="0 0 120 96" fill="none" aria-hidden="true">
-      <path d="M62 10 V70" stroke="#EAF3F6" stroke-width="1.6"/>
-      <path d="M62 12 L62 66 L26 66 Z" stroke="#EAF3F6" stroke-width="1.6" fill="rgba(255,255,255,.05)"/>
-      <path d="M66 20 L66 66 L96 66 Z" stroke="#7FB6C6" stroke-width="1.6" fill="none"/>
-      <path d="M18 72 H104 L92 88 H32 Z" stroke="#EAF3F6" stroke-width="1.6" fill="rgba(255,255,255,.05)"/>
-      <path d="M62 10 L74 13 L62 17" stroke="#7FB6C6" stroke-width="1.3" fill="none"/>
-    </svg>
-    <span class="pl-text mono">PLOTTING&nbsp;COURSE…</span>
+  <video class="pl-video" src="assets/wave-intro-hd.mp4"
+         muted playsinline preload="auto" disablepictureinpicture></video>
+  <!-- title card: shown first, then washed away by the wave -->
+  <div class="pl-title">
+    <span class="pl-name serif">Andrea Signoretti</span>
+    <span class="pl-sub mono">Paris&nbsp;· École&nbsp;Polytechnique&nbsp;X24&nbsp;· Applied&nbsp;maths&nbsp;&amp;&nbsp;AI</span>
+    <span class="pl-rule"></span>
   </div>
 </div>
 
 <!-- ============================ NAV ============================ -->
 <nav aria-label="Primary">
   <a class="mark" href="#top">A. Signoretti</a>
-  <ul>
-    <li><a href="#route">Route</a></li>
-    <li><a href="#soundings">Soundings</a></li>
-    <li><a href="#compass">Compass</a></li>
-    <li><a href="#fix">The Fix</a></li>
-    <li><a href="#harbour">Harbour</a></li>
-  </ul>
+  <div class="nav-links">
+    <ul>
+      <li><a href="#purpose">Purpose</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#compass">Compass</a></li>
+      <li><a href="#beyond">Beyond</a></li>
+      <li><a href="#fix">The Fix</a></li>
+      <li><a href="#harbour">Harbour</a></li>
+    </ul>
+    <!-- Voyage: main.js sails this boat under the links over an unseen sea as the
+         page scrolls, and keeps it nearest the link of the section being read. -->
+    <div class="voyage" aria-hidden="true">
+      <span class="voyage-splash" id="voyageSplash"></span>
+      <div class="voyage-boat" id="voyageBoat">
+        <div class="voyage-bob">
+          <svg width="25" height="20" viewBox="0 0 120 96" fill="none">
+            <path d="M62 10 V70" stroke="#0C2233" stroke-width="5"/>
+            <path d="M62 12 L62 66 L26 66 Z" stroke="#0C2233" stroke-width="5" fill="#F2F7F9"/>
+            <path d="M66 20 L66 66 L96 66 Z" stroke="#1F6E8C" stroke-width="5" fill="none"/>
+            <path d="M18 72 H104 L92 88 H32 Z" stroke="#0C2233" stroke-width="5" fill="#F2F7F9"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
   <details class="nav-menu">
     <summary aria-label="Open navigation menu">Chart ▾</summary>
     <ul>
-      <li><a href="#route">Route</a></li>
-      <li><a href="#soundings">Soundings</a></li>
+      <li><a href="#purpose">Purpose</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#compass">Compass</a></li>
+      <li><a href="#beyond">Beyond</a></li>
       <li><a href="#fix">The Fix</a></li>
       <li><a href="#harbour">Harbour</a></li>
     </ul>
@@ -75,187 +91,329 @@
 <header id="top">
   <div class="hero-inner">
     <div class="hero-copy">
-      <p class="coord">43°42′N · 7°16′E — POINT OF DEPARTURE</p>
+      <!-- "whoami" types itself once the preloader clears (see .typed in styles.css) -->
+      <p class="prompt mono"><span class="p-host">andrea@x24</span>:<span class="p-path">~</span>$ <span class="typed">whoami</span><span class="p-comment">  # 43°42′N 7°16′E · point of departure</span></p>
 
       <h1>Andrea Signoretti</h1>
 
+      <p class="hero-tagline serif">Building reliable and human-compatible AI for high-stakes applications.</p>
+
+      <p class="hero-sub">Agentic LLM systems and ML models for applied AI in high stakes environments and decision-making applications. Multi-agent synergistic reasoning over knowledge graphs at Orange Innovation (paper targeting JFSMA @ PFIA 2027), and applied AI for investment decisions at Panthera Solutions.</p>
+      <p class="hero-status mono"><span class="led" aria-hidden="true"></span><span class="k">status</span>: open to a 6-month applied AI research internship · from 04/2027</p>
+
       <div class="hero-id">
-        <a class="handle mono" href="https://github.com/Blackbull11" target="_blank" rel="noopener">@Blackbull11</a>
-        <span class="poly-badge">
-          <span class="poly-logo" aria-hidden="true"></span>
-          <span class="mono">École Polytechnique · X24</span>
-        </span>
+        <a class="handle cta mono" href="https://www.linkedin.com/in/andrea-signoretti/">linkedin ↗</a>
+        <a class="handle mono" href="https://github.com/Blackbull11" target="_blank" rel="noopener">github/Blackbull11 ↗</a>
+        <a class="handle mono" href="cv.pdf" target="_blank" rel="noopener">cv.pdf ↗</a>
       </div>
 
-      <p class="hero-tagline serif">Navigating toward <em>AI-human augmented reasoning</em>.</p>
-
-      <p class="hero-sub">I'm Andrea Signoretti — engineering student at École Polytechnique, researcher-in-training in multi-agent and neuro-symbolic systems. I build AI that reasons <em>with</em> people rather than instead of them. This page is the chart of that journey: where it started, what I've built along the way, and the heading I've set.</p>
+      <!-- Work in progress: each row jumps to its card in #projects. Spinners are
+           animated by main.js; edit the status text here as the work moves on. -->
+      <section class="term" aria-labelledby="wip-h">
+        <div class="term-bar mono">
+          <span class="term-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <h2 id="wip-h" class="term-title">~/work-in-progress</h2>
+        </div>
+        <div class="term-body mono">
+          <p class="term-line"><span class="ps">$</span> ps --wip <span class="c"># click a process to jump to it</span></p>
+          <ul class="wip">
+            <li><a href="#proj-masynreas">
+              <span class="spin" aria-hidden="true">●</span>
+              <span class="w-name">masynreas</span>
+              <span class="w-state">paper draft → JFSMA @ PFIA 2027</span>
+            </a></li>
+            <li><a href="#proj-scholarmates">
+              <span class="spin" aria-hidden="true">●</span>
+              <span class="w-name">scholarmates</span>
+              <span class="w-state">building the organizer · writer · reviewer agents</span>
+            </a></li>
+            <li><a href="#proj-eardrop">
+              <span class="spin" aria-hidden="true">●</span>
+              <span class="w-name">eardrop</span>
+              <span class="w-state">benchmarking against Whisper-small</span>
+            </a></li>
+          </ul>
+          <p class="term-line" aria-hidden="true"><span class="ps">$</span> <span class="cursor"></span></p>
+        </div>
+      </section>
     </div>
 
     <figure class="portrait-frame">
       <div class="portrait" role="img" aria-label="Portrait of Andrea Signoretti">
         <span class="portrait-fallback" aria-hidden="true">AS</span>
       </div>
-      <figcaption class="mono">CAPTAIN'S LOG · X24 · PARIS</figcaption>
+      <figcaption class="mono">APM & AI Student · X24 · PARIS</figcaption>
     </figure>
+
+    <p class="scroll-cue mono" id="scrollCue">scroll --follow-route ↓</p>
   </div>
 
-  <p class="scroll-cue mono" id="scrollCue">SCROLL — FOLLOW THE ROUTE ↓</p>
-
-  <!-- Sea: layered waves + boat riding the front wave, carrying the captain's badge -->
+  <!-- Sea: three swell layers, far → near. The boat sits between the far and mid
+       layers, so the mid layer's own fill is what hides the hull below its
+       waterline — the boat can never read as hovering or as swamped. -->
   <div class="sea" aria-hidden="true">
+    <svg class="waves w2" viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <defs>
+        <!-- Each layer is darkest just under its own crest line — that is the wave's
+             back face, turned away from the sky — then opens out to the hazier tone
+             of the water beyond it. The steps between layers are what make each
+             waterline legible, so the hull visibly meets the mid layer's surface. -->
+        <linearGradient id="seaFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#D9E8EF"/>
+          <stop offset=".35" stop-color="#E2EEF3"/>
+          <stop offset="1" stop-color="#E6F1F5"/>
+        </linearGradient>
+        <linearGradient id="seaMid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#B3D0E1"/>
+          <stop offset=".3" stop-color="#D3E4EE"/>
+          <stop offset="1" stop-color="#DCEBF1"/>
+        </linearGradient>
+        <linearGradient id="seaNear" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#A2C2D5"/>
+          <stop offset=".4" stop-color="#AECBDB"/>
+          <stop offset="1" stop-color="#BCD5E2"/>
+        </linearGradient>
+      </defs>
+      <path id="waveFar" fill="url(#seaFar)"/>
+      <path id="foamFar" fill="none" stroke="#FFFFFF" stroke-opacity=".55"
+            stroke-width="1" vector-effect="non-scaling-stroke"/>
+    </svg>
+
     <div class="boat" id="heroBoat">
       <div class="captain" role="img" aria-label="Andrea on the boat"></div>
-      <svg width="118" height="96" viewBox="0 0 120 96" fill="none">
+      <svg width="120" height="96" viewBox="0 0 120 96" fill="none">
         <path d="M62 10 V70" stroke="#0C2233" stroke-width="1.5"/>
         <path d="M62 12 L62 66 L26 66 Z" stroke="#0C2233" stroke-width="1.5" fill="#F2F7F9"/>
         <path d="M66 20 L66 66 L96 66 Z" stroke="#1F6E8C" stroke-width="1.5" fill="none"/>
         <path d="M18 72 H104 L92 88 H32 Z" stroke="#0C2233" stroke-width="1.5" fill="#F2F7F9"/>
         <path d="M62 10 L74 13 L62 17" stroke="#1F6E8C" stroke-width="1.2" fill="none"/>
+        <!-- foam curling off either bow, level with the hull's waterline (y=79) -->
+        <path d="M0 79 q6 -3.5 12 0 t12 0" stroke="#FFFFFF" stroke-width="2"
+              stroke-linecap="round" opacity=".95"/>
+        <path d="M96 79 q6 -3.5 12 0 t12 0" stroke="#FFFFFF" stroke-width="2"
+              stroke-linecap="round" opacity=".95"/>
       </svg>
     </div>
-    <svg class="waves w2" viewBox="0 0 1440 200" preserveAspectRatio="none">
-      <path d="M0 90 Q 90 60 180 90 T 360 90 T 540 90 T 720 90 T 900 90 T 1080 90 T 1260 90 T 1440 90 V200 H0 Z" fill="#C9E0E8"/>
-    </svg>
+
     <svg class="waves w1" viewBox="0 0 1440 200" preserveAspectRatio="none">
-      <path d="M0 120 Q 120 92 240 120 T 480 120 T 720 120 T 960 120 T 1200 120 T 1440 120 V200 H0 Z" fill="#DCEBF0"/>
+      <path id="waveMid" fill="url(#seaMid)"/>
+      <path id="foamMid" fill="none" stroke="#FFFFFF" stroke-opacity=".85"
+            stroke-width="1.4" vector-effect="non-scaling-stroke"/>
     </svg>
+
     <svg class="waves w0" viewBox="0 0 1440 200" preserveAspectRatio="none">
-      <path d="M0 112 Q 40 104 80 112 T 160 112 T 240 112 T 320 112 T 400 112 T 480 112 T 560 112 T 640 112 T 720 112 T 800 112 T 880 112 T 960 112 T 1040 112 T 1120 112 T 1200 112 T 1280 112 T 1360 112 T 1440 112 V200 H0 Z" fill="rgba(255,255,255,.4)"/>
+      <path id="waveNear" fill="url(#seaNear)"/>
+      <path id="foamNear" fill="none" stroke="#FFFFFF" stroke-opacity=".85"
+            stroke-width="1.8" stroke-linecap="round"
+            vector-effect="non-scaling-stroke"/>
     </svg>
   </div>
 </header>
 
-<!-- ============================ MAIN / ROUTE ============================ -->
+<!-- ============================ MAIN ============================ -->
 <main id="main">
-  <div class="route" aria-hidden="true"></div>
+  <!-- ---------- WPT 01 · Purpose ---------- -->
+  <section id="purpose" style="padding:clamp(3.5rem,8vw,6rem) 0;border-top:1px solid rgba(12,34,51,.22)">
+    <p style="font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.16em;color:#1F6E8C;text-transform:uppercase;margin-bottom:.7rem">01 — Purpose</p>
+    <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.06;max-width:26ch">A seamless integration of AI into humanity</h2>
+    <div style="height:8px;width:120px;margin:.8rem 0 2rem;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 8'%3E%3Cpath d='M0 5 Q4.5 1 9 5 T18 5 T27 5 T36 5' fill='none' stroke='%231F6E8C' stroke-width='1.5'/%3E%3C/svg%3E&quot;);background-repeat:repeat-x;background-size:36px 8px;animation:uDrift 1.8s linear infinite"></div>
 
-  <!-- Route progress boat: sits on the line, moves with scroll -->
-  <div class="route-boat" id="routeBoat" aria-hidden="true">
-    <div class="route-face"></div>
-    <svg width="26" height="26" viewBox="0 0 120 96" fill="none">
-      <path d="M62 10 V70" stroke="#0C2233" stroke-width="3"/>
-      <path d="M62 12 L62 66 L26 66 Z" stroke="#0C2233" stroke-width="3" fill="#F2F7F9"/>
-      <path d="M66 20 L66 66 L96 66 Z" stroke="#1F6E8C" stroke-width="3" fill="none"/>
-      <path d="M18 72 H104 L92 88 H32 Z" stroke="#0C2233" stroke-width="3" fill="#F2F7F9"/>
-    </svg>
-  </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(1.5rem,4vw,3.5rem);align-items:start" data-reveal="">
+      <div style="min-width:0">
+        <p style="font-family:'Instrument Serif',serif;font-size:clamp(1.2rem,2.2vw,1.55rem);line-height:1.34;text-wrap:pretty">AI is a breakthrough technology and already essential infrastructure. But economic incentives steered its development toward <em style="font-style:italic;color:#1F6E8C">replacing</em> human work rather than <em style="font-style:italic;color:#1F6E8C">interacting</em> with human judgment.</p>
+        <p style="color:#52707D;font-size:1rem;margin-top:1.2rem;text-wrap:pretty">Fully autonomous agents only take you so far. Without explainability, security, and a perception of the world shared with their operator, they cannot be trusted where the stakes are real — defense, telecom operations, capital allocation. Trust is the binding constraint on deployment, not capability.</p>
+        <p style="color:#52707D;font-size:1rem;margin-top:1rem;text-wrap:pretty">I want to contribute to Human-Compatible AI research: adapting AI to the humanity for a sustainable future, rather than adapting humans to AI constrainrs.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;min-width:0">
+        <div style="border:1px solid rgba(12,34,51,.22);border-radius:2px;background:#FFFFFF;padding:1.2rem 1.3rem">
+          <p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#1F6E8C;text-transform:uppercase">Explainability</p>
+          <p style="color:#52707D;font-size:.92rem;margin-top:.4rem">Symbolic structure over neural inference, so a decision can be traced rather than trusted on faith.</p>
+        </div>
+        <div style="border:1px solid rgba(12,34,51,.22);border-radius:2px;background:#FFFFFF;padding:1.2rem 1.3rem">
+          <p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#1F6E8C;text-transform:uppercase">Alignment</p>
+          <p style="color:#52707D;font-size:.92rem;margin-top:.4rem">Constraints that hold at runtime — learned shipping systems inside intelligence services and telecom operations.</p>
+        </div>
+        <div style="border:1px solid rgba(12,34,51,.22);border-radius:2px;background:#FFFFFF;padding:1.2rem 1.3rem">
+          <p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#1F6E8C;text-transform:uppercase">Shared perception of their environment</p>
+          <p style="color:#52707D;font-size:.92rem;margin-top:.4rem">Making sure models and agents understand the environment in the same way as the human and stick to this perception, through KG perhaps.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- ---------- WPT 01 · Journal de bord ---------- -->
-  <section id="route" aria-labelledby="route-h" class="reveal">
-    <span class="wp" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
-    </span>
-    <p class="coord-line">WPT 01 · 48°51′N 2°21′E — THE ROUTE SO FAR</p>
-    <h2 id="route-h">Journal de bord</h2>
-    <p class="section-note">Every position on a chart comes from the positions before it. Experience and education, plotted in order.</p>
+  <!-- ---------- WPT 02 · Projects ---------- -->
+  <section id="projects" aria-labelledby="projects-h" class="reveal">
+    <p class="coord-line">WPT 02 — PROJECTS</p>
+    <h2 id="projects-h">Personal Projects</h2>
+    <p class="section-note">Seven projects, from research prototypes to a platform in production.</p>
+
+    <!-- An empty .media frame shows a bare chart tile. To fill one, put an <img> or
+         <video> inside it (GIFs and screen recordings work) — see assets/README.md. -->
+    <div class="projects reveal">
+      <article class="project" id="proj-eardrop">
+        <div class="project-body">
+          <span class="tag">Personal project · Audio ML</span>
+          <h3>EarDrop</h3>
+          <p>Recognizes the 30 most-spoken languages by ear, benchmarking a from-scratch acoustic classifier against a fine-tuned Whisper-small — and surfaces the audio cues that separate one language from another.</p>
+          <ul class="chips" aria-label="Stack">
+            <li>PyTorch</li><li>Whisper</li><li>Audio</li>
+          </ul>
+          <a class="project-link" href="https://github.com/Blackbull11/EarDrop" target="_blank" rel="noopener">View repo →</a>
+        </div>
+      </article>
+
+      <article class="project" id="proj-edf">
+        <div class="project-body">
+          <span class="tag">Research project · Operations research</span>
+          <h3>Network Expansion Planning — EDF Lab</h3>
+          <p>Network expansion planning in decomposed networks: replacing expensive ILP solving with max-flow and Voronoi-based algorithms. Supervised by Cécile Rottner and Sandie Balaguer.</p>
+          <ul class="chips" aria-label="Methods">
+            <li>ILP</li><li>Max-flow</li><li>Voronoi</li><li>Graphs</li>
+          </ul>
+          <span class="project-link muted">EDF Lab · supervised research</span>
+        </div>
+      </article>
+
+      <article class="project" id="proj-masynreas">
+        <div class="media" aria-hidden="true">
+          <img class="pin-left" src="assets/masynreas.png" width="944" height="396" loading="lazy" alt="Multi-agent system for network anomaly detection and root-cause analysis over RDF/OWL knowledge graphs: an example use case.">
+        </div>
+        <div class="project-body">
+          <span class="tag">Research · Multi-agent</span>
+          <h3>Multi-Agent Synergistic Reasoning</h3>
+          <p>A three-layer explainable multi-agent system for network anomaly detection and root-cause analysis over RDF/OWL knowledge graphs: 54 deterministic SPARQL agents, 12 correlation diagnosers, one LLM explainer. 0.815 F1 against 0.508 for a standalone LLM on a 27-graph benchmark, and 100% robustness under noise.</p>
+          <ul class="chips" aria-label="Stack">
+            <li>JaCaMo</li><li>RDF/OWL</li><li>SPARQL</li><li>LLM</li>
+          </ul>
+          <a class="project-link" href="https://github.com/Blackbull11/MASynReas" target="_blank" rel="noopener">View repo →</a>
+          <a class="project-link" href="/assets/INF12_rapportfinal.pdf" target="_blank" rel="noopener">View paper (in French) →</a>
+        </div>
+      </article>
+
+      <article class="project" id="proj-scholarmates">
+        <div class="media"><img class="pin-left" src="assets/scholarmates.webp" width="944" height="396" loading="lazy" alt="ScholarMates workspace at the ideation stage: a paper's topic, goals and destination on the left, its draft plan on the right."></div>
+        <div class="project-body">
+          <span class="tag">Personal project · Agentic HITL</span>
+          <h3>ScholarMates</h3>
+          <p>A human-in-the-loop workspace for writing research papers end to end: RAG over your bibliography, OCR, ArXiv and Google Scholar search, and role-specialized agents — organizer, writer, reviewer.</p>
+          <ul class="chips" aria-label="Stack">
+            <li>React</li><li>RAG</li><li>OCR</li>
+          </ul>
+          <a class="project-link" href="https://github.com/Blackbull11/ScholarMates" target="_blank" rel="noopener">View repo →</a>
+        </div>
+      </article>
+
+      <article class="project" id="proj-ssv2">
+        <div class="media" aria-hidden="true"></div>
+        <div class="project-body">
+          <span class="tag">Lab project · Deep learning for CV</span>
+          <h3>What Happens Next? — Action Prediction on SSv2</h3>
+          <p>Predicting the action in Something-Something v2 videos from only their first ~40%, before the outcome is shown, across 33 motion classes. I built the closed-world track: TSM and video-transformer models trained from scratch in PyTorch and ensembled with test-time augmentation, reaching 44.03% top-1, against 65.86% for the open-world track's LLRD fine-tuning of V-JEPA 2.</p>
+          <ul class="chips" aria-label="Stack">
+            <li>PyTorch</li><li>TSM</li><li>ViT</li><li>V-JEPA 2</li>
+          </ul>
+          <a class="project-link" href="https://github.com/Fl0972/What-Happens-Next-Video-Action-Prediction-on-Something-Something-V2" target="_blank" rel="noopener">View repo →</a>
+          <a class="project-link" href="assets/SSv2_WhatHappensNext_report.pdf" target="_blank" rel="noopener">View paper →</a>
+        </div>
+      </article>
+
+      <article class="project" id="proj-agricredit">
+        <div class="media"><img class="pin-left" src="assets/agricredit.webp" width="1400" height="756" loading="lazy" alt="AgriCredit scorer: a farm investment's credit-risk score, financial projection, external data enrichment and Monte-Carlo simulated outcomes."></div>
+        <div class="project-body">
+          <span class="tag">Hackathon · 1st prize</span>
+          <h3>AgriCredit</h3>
+          <p>1st prize at the BCGX DataQuest Hackathon: a credit-risk scorer that prices farm loans in Morocco on a plot's agronomic potential rather than its land collateral. Farmer inputs are enriched with yield, climate, soil and market-access data, then run through a Monte-Carlo model of whether the investment pays for itself.</p>
+          <ul class="chips" aria-label="Methods">
+            <li>Monte-Carlo</li><li>Geospatial data</li><li>Risk scoring</li>
+          </ul>
+          <a class="project-link" href="https://github.com/Blackbull11/AgriCredit_DataQuestHackathon" target="_blank" rel="noopener">View repo →</a>
+        </div>
+      </article>
+
+      <!-- full-width card: image beside the text rather than above it -->
+      <article class="project project-wide" id="proj-intel">
+        <div class="media"><img class="pin-left" src="assets/osix.webp" width="822" height="416" loading="lazy" alt="The OSINT workspace: a toolbox of search tools, curated source lists filtered by topic, and the user's research projects."></div>
+        <div class="project-body">
+          <span class="tag">Defense · Full-stack</span>
+          <h3>Secure Intelligence Platform</h3>
+          <p>A secure workspace application for OSINT data collection, now used by six French intelligence agencies. Led the user-oriented design with high autonomy, from need survey to delivery; awarded an official commendation letter by the Ministry of Defense.</p>
+          <ul class="chips" aria-label="Stack">
+            <li>TypeScript</li><li>PHP</li><li>SQL</li>
+          </ul>
+          <span class="project-link muted">Closed source</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ---------- WPT 03 · Education ---------- -->
+  <section id="education" aria-labelledby="education-h" class="reveal">
+    <p class="coord-line">WPT 03 — EDUCATION</p>
+    <h2 id="education-h">Academic cursus</h2>
+
+    <div class="edu">
+      <article class="edu-card reveal">
+        <span class="tag">2024 — 2028</span>
+        <h3>École Polytechnique — X24</h3>
+        <span class="tag muted">Cycle Ingénieur Polytechnicien · Palaiseau</span>
+        <p>M.Sc. in Applied Mathematics and Computer Science, specializing in machine learning. Coursework: probability theory for ML, operational research, topological data analysis, optimization for AI, deep learning, reinforcement learning.</p>
+      </article>
+
+      <article class="edu-card reveal">
+        <span class="tag">2022 — 2024</span>
+        <h3>Lycée Henri IV — CPGE</h3>
+        <span class="tag muted">MPSI / MP* · Paris</span>
+        <p>Two years of intensive mathematics, theoretical computer science, and physics for the national competitive entrance exams. GPA 4.0/4.0 (A+); admitted to École Polytechnique and ranked 6th at ENS Lyon in the CS track.</p>
+      </article>
+
+      <article class="edu-card reveal">
+        <span class="tag">2021 — 2025</span>
+        <h3>Awards &amp; honors</h3>
+        <span class="tag muted">Distinctions</span>
+        <ul class="edu-list">
+          <li>  <b>1st prize</b>, BCGX DataQuest Hackathon (2025)</li>
+          <li>  <b>Official Commendation Letter</b>, French Ministry of Defense (2025)</li>
+          <li>  <b>2nd prize</b>, National Mathematics Olympiads (2021)</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ---------- WPT 04 · Experience ---------- -->
+  <section id="experience" aria-labelledby="experience-h" class="reveal">
+    <p class="coord-line">WPT 04 — EXPERIENCE</p>
+    <h2 id="experience-h">Professional experience</h2>
 
     <div class="ports">
       <article class="port reveal">
-        <div class="when mono">2025 — 2026<br><span class="place">Paris</span></div>
+        <div class="when mono">06/2026 — 09/2026<br><span class="place">Monaco</span></div>
         <div>
-          <h3>Student Researcher — Orange Innovation</h3>
-          <p>Researching multi-agent synergistic control on knowledge graphs to automate network maintenance: JaCaMo agent systems over RDF/OWL knowledge graphs, with neuro-symbolic constraints that keep anomaly detection explainable without giving up runtime efficiency. Co-authoring a research paper on multi-agent synergistic reasoning, targeting a 2026 submission.</p>
+          <h3>Applied AI Engineer (Intern) — Panthera Solutions</h3>
+          <p>Led research on multi-agent-system personalization in a high-stakes environment: investor profile metadata injected into context to challenge a user's decision with XAI and sourced feedback, validated on real use cases in a proof of concept. Designed the agentic layer of the six-stage decision workflow for the Decision GPS application — an evidence-based LLM reasoning pipeline tracking behavioral-finance criteria and causal reasoning — and rebuilt the monitoring section as a MAS of Research, Process and Challenge agents over a market data API.</p>
         </div>
       </article>
 
       <article class="port reveal">
-        <div class="when mono">2024 — 2025<br><span class="place">Strasbourg</span></div>
+        <div class="when mono">06/2025 — 06/2026<br><span class="place">Paris</span></div>
         <div>
-          <h3>Full-Stack Developer (Intern) — French Military Intelligence</h3>
-          <p>Designed and shipped a secure data-collection platform (PHP, SQL, TypeScript) now used by six military intelligence agencies — cutting manual intake by 80%. Authored an AI adoption plan for unit executives and curated a training dataset for a domestic model PoC. Awarded an official commendation letter from the Ministry of the Armed Forces.</p>
+          <h3>Computer Science Research Project — Orange Innovation</h3>
+          <p>Designed a three-layer explainable multi-agent system (JaCaMo) for network anomaly detection and root-cause analysis over RDF/OWL knowledge graphs, combining 54 deterministic SPARQL agents with 12 correlation diagnosers and an LLM explainer. Built a reproducible 27-graph benchmark: 0.815 F1 against 0.508 for a standalone LLM, with 100% robustness under noise. Co-authoring a paper on multi-agent synergistic reasoning, targeting JFSMA @ PFIA 2027.</p>
         </div>
       </article>
 
       <article class="port reveal">
-        <div class="when mono">2024 — 2028<br><span class="place">Paris</span></div>
+        <div class="when mono">10/2024 — 04/2025<br><span class="place">Strasbourg</span></div>
         <div>
-          <h3>École Polytechnique (X24) — Cycle Ingénieur Polytechnicien</h3>
-          <p>Applied Mathematics &amp; Computer Science (M.Sc.-level, graduating 2028). Statistics, optimal control, machine learning, algorithms, theory of computation, advanced probability. Applied projects in deep learning for computer vision and synergistic reasoning in multi-agent systems.</p>
-        </div>
-      </article>
-
-      <article class="port reveal">
-        <div class="when mono">2022 — 2024<br><span class="place">Paris</span></div>
-        <div>
-          <h3>Lycée Henri IV — Classes Préparatoires (MPSI/MP*)</h3>
-          <p>Two years of intensive mathematics, theoretical computer science, and physics for the national competitive entrance exams.</p>
-        </div>
-      </article>
-
-      <article class="port reveal">
-        <div class="when mono">2019 — 2022<br><span class="place">Nice</span></div>
-        <div>
-          <h3>Institut Stanislas — Scientific Baccalaureate with honors</h3>
-          <p>2nd prize, National Mathematics Olympiad; 1st prize, High School Rhetoric Contest. The departure point.</p>
+          <h3>Full-Stack Engineer (Intern) — French Army Intelligence</h3>
+          <p>Developed a secure workspace application for OSINT data collection (PHP, SQL, TypeScript), now used by six intelligence agencies in France. Led the user-oriented design from need survey to delivery with high autonomy; received an official Commendation Letter.</p>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- ---------- WPT 02 · Soundings ---------- -->
-  <section id="soundings" aria-labelledby="soundings-h" class="reveal">
-    <span class="wp" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
-    </span>
-    <p class="coord-line">WPT 02 · 48°35′N 7°45′E — SOUNDINGS</p>
-    <h2 id="soundings-h">Soundings</h2>
-    <p class="section-note">Depth measurements taken along the way — selected projects and builds.</p>
-
-    <div class="grid">
-      <a class="card reveal" href="https://github.com/Blackbull11/MASynReas" target="_blank" rel="noopener">
-        <span class="tag">RESEARCH · MULTI-AGENT</span>
-        <h3>Multi-Agent Synergistic Reasoning</h3>
-        <p>Novel frameworks for coordination and selection between agents on knowledge graphs, under neuro-symbolic explainability constraints. Ongoing research at Orange Innovation; paper in preparation.</p>
-        <span class="card-link mono">VIEW REPO →</span>
-      </a>
-
-      <a class="card reveal" href="https://github.com/Blackbull11/OverSearch" target="_blank" rel="noopener">
-        <span class="tag">RESEARCH TOOL · LLM + OCR</span>
-        <h3>OverSearch</h3>
-        <p>An all-in-one workspace for scholars: an ergonomic dashboard augmented with an LLM-powered research engine and OCR that pulls data straight from papers. Built in React — the tool I wanted in prépa.</p>
-        <span class="card-link mono">VIEW REPO →</span>
-      </a>
-
-      <article class="card reveal">
-        <span class="tag">FREELANCE · NLP</span>
-        <h3>Lab Secretary Companion</h3>
-        <p>Co-developing the MVP of an automated secretary for biological analysis laboratories: NLP, symbolic AI, OCR, data pipelines, REST API.</p>
-      </article>
-
-      <article class="card reveal">
-        <span class="tag">DEFENSE · FULL-STACK</span>
-        <h3>Secure Intelligence Platform</h3>
-        <p>Data-collection platform adopted by six agencies; ~500 references collected in three months, 80% less manual intake. Commended by the Ministry of the Armed Forces.</p>
-      </article>
-
-      <article class="card reveal">
-        <span class="tag">APPLIED PROJECT · CV</span>
-        <h3>Deep Learning for Computer Vision</h3>
-        <p>Applied coursework project at Polytechnique on modern vision architectures.</p>
-      </article>
-
-      <a class="card reveal" href="https://github.com/Blackbull11/hackdays2025" target="_blank" rel="noopener">
-        <span class="tag">HACKATHONS · AGENTS</span>
-        <h3>Agentic Systems PoCs</h3>
-        <p>Three competitive hackathons: agentic systems, RAG pipelines, and MLOps practice with industry mentors.</p>
-        <span class="card-link mono">VIEW REPO →</span>
-      </a>
-
-      <article class="card reveal">
-        <span class="tag">LEADERSHIP</span>
-        <h3>XProjets &amp; X-Forum</h3>
-        <p>Vice-President of Polytechnique's €200K Junior-Entreprise (business development &amp; corporate relations); Head of IT for the school's 1000+ attendee career fair.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ---------- WPT 03 · The Compass ---------- -->
+  <!-- ---------- WPT 05 · The Compass ---------- -->
   <section id="compass" aria-labelledby="compass-h" class="reveal">
-    <span class="wp" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
-    </span>
-    <p class="coord-line">WPT 03 — THE COMPASS</p>
+    <p class="coord-line">WPT 05 — THE COMPASS</p>
     <h2 id="compass-h">The Compass <span class="serif sub">— what the needle knows</span></h2>
     <p class="section-note">Everything I've worked with, arranged by bearing. Hover a word: the needle finds it.</p>
 
@@ -299,12 +457,35 @@
     <div class="compass-tags" id="compassTags"></div>
   </section>
 
-  <!-- ---------- WPT 04 · The Fix ---------- -->
+  <!-- ---------- WPT 06 · Beyond the lab ---------- -->
+  <section id="beyond" aria-labelledby="beyond-h" class="reveal">
+    <p class="coord-line">WPT 06 — BEYOND THE LAB</p>
+    <h2 id="beyond-h">Extracurricular</h2>
+
+    <div class="crew">
+      <article class="reveal">
+        <span class="tag"><b style="font-size:medium; font-weight: 500;">XProjets</b> · Junior-Entreprise</span>
+        <h3>Vice-President</h3>
+        <p>Leading a 45-person team on a €400K data project for a leading European AI lab, overseeing quality and volume control. +180% revenue in 2025, reaching €550K.</p>
+      </article>
+
+      <article class="reveal">
+        <span class="tag"><b style="font-size: medium; font-weight: 500;">X-Forum</b></span>
+        <h3>Treasurer &amp; Head of IT</h3>
+        <p>Accounting and billing for a €1.3M career fair with over 1500 attendants. Responsible of the information systems : CRM, ERP, public website - led their full redesign of the registration platform for all attendants and <a href="https://xforum.binets.fr" target="_blank" rel="noopener noreferrer">the public website</a>.</p>
+      </article>
+
+      <article class="reveal">
+        <span class="tag"><b style="font-size: medium; font-weight: 500;">Varsity Basketball</b></span>
+        <h3>Captain</h3>
+        <p>Twelve competitive seasons leading the team.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ---------- WPT 07 · The Fix ---------- -->
   <section id="fix" aria-labelledby="fix-h" class="reveal">
-    <span class="wp" aria-hidden="true">
-      <svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#1F6E8C" stroke-width="1.2" opacity=".5"/><circle cx="12" cy="12" r="5" fill="#F2F7F9" stroke="#1F6E8C" stroke-width="1.6"/><circle cx="12" cy="12" r="1.8" fill="#1F6E8C"/></svg>
-    </span>
-    <p class="coord-line">WPT 04 — DESTINATION: WHERE TWO MINDS CROSS</p>
+    <p class="coord-line">WPT 07 — DESTINATION: WHERE TWO MINDS CROSS</p>
     <h2 id="fix-h">The Fix <span class="serif sub">— two bearings, one position</span></h2>
     <p class="section-note wide">In coastal navigation, one bearing gives you a line of position — you could be anywhere along it. Two bearings, taken from different landmarks, cross at a fix. I think human judgment and machine reasoning work the same way, and it's the problem I want to spend my career on: systems where neither mind navigates alone.</p>
 
@@ -387,10 +568,10 @@
   </div>
   <div class="footer-fine mono">
     <span>Paris, France · English · Français · Italiano</span>
-    <span>© 2026 Andrea Signoretti — chart drawn by hand, course still being plotted.</span>
+    <span>Copyright : 2026 - Andrea Signoretti.</span>
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script src="main.js?v=11"></script>
 </body>
 </html>

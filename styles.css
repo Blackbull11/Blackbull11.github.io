@@ -1,6 +1,6 @@
 /* ============================================================
    Andrea Signoretti — Portfolio · "Blue Navigation"
-   Tokens → base → nav → hero → route → sections → compass
+   Tokens → base → nav + voyage → hero → sections → compass
    → the fix → footer → reveals → responsive
    ============================================================ */
 
@@ -11,9 +11,14 @@
   --shallow: #7FB6C6;  /* secondary accent */
   --wave1:   #DCEBF0;
   --wave2:   #C9E0E8;
+  --foam:    #EAF3F6;  /* empty media frames */
   --faded:   #52707D;  /* secondary text (AA on --mist) */
   --hair:    rgba(12,34,51,.22);
   --white:   #FFFFFF;
+
+  /* content column shared by the hero, the sections and the footer */
+  --page-max: 1280px;
+  --gutter:   clamp(1.25rem,5vw,4rem);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -48,26 +53,61 @@ a:focus-visible,button:focus-visible,summary:focus-visible{
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .js .reveal{opacity:1!important;transform:none!important}
-  .route-boat{display:none!important}
   #preloader{display:none!important}   /* no wave reveal — show page immediately */
 }
 
 /* ============================ NAV ============================ */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:30;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.2rem 3rem;
-  background:linear-gradient(var(--mist) 55%, transparent);
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:1rem 3rem .45rem;
+  background:linear-gradient(var(--mist) 78%, rgba(242,247,249,0));
 }
 nav .mark{font-family:'Instrument Serif',serif;font-size:1.15rem;color:var(--ink)}
-nav > ul{display:flex;gap:2.1rem;list-style:none;
+.nav-links > ul{display:flex;gap:clamp(1rem,1.9vw,2.1rem);list-style:none;
   font-family:'Space Mono',monospace;font-size:.66rem;
   letter-spacing:.13em;text-transform:uppercase;}
-nav > ul a{color:var(--ocean);opacity:.6;transition:opacity .25s}
-nav > ul a:hover{opacity:1}
-nav > ul a.active{opacity:1;position:relative}
-nav > ul a.active::after{
+.nav-links > ul a{color:var(--ocean);opacity:.6;transition:opacity .25s}
+.nav-links > ul a:hover{opacity:1}
+.nav-links > ul a.active{opacity:1;position:relative}
+.nav-links > ul a.active::after{
   content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:var(--ocean);
+}
+
+/* Voyage: the boat under the links. main.js sails it with the scroll over an
+   unseen sea (calm at each link, rough between) and lets it leap crests on a brisk
+   scroll; it stays nearest the link of the section being read. top:11px is the
+   calm-water level: room above for a leap up to CEILING (9px in main.js) with the
+   mast still clear of the link underline, and below for the deepest trough. */
+.voyage{position:relative;height:36px;margin-top:5px}
+.voyage-boat{
+  position:absolute;left:-12.5px;top:11px;width:25px;will-change:transform;
+  transform-origin:50% calc(100% - 3.5px);   /* pitch about the hull's waterline (y=79 of 96) */
+}
+/* Spray thrown up either side of the hull on a hard landing. Sits on the calm-water
+   waterline (11px + 16.5px); main.js moves it to the landing point and replays it. */
+.voyage-splash{position:absolute;left:0;top:27.5px;width:0;height:0;pointer-events:none}
+.voyage-splash::before,.voyage-splash::after{
+  content:"";position:absolute;left:-1.25px;top:-1.25px;width:2.5px;height:2.5px;
+  border-radius:50%;background:var(--ocean);opacity:0;
+}
+.voyage-splash.go::before{animation:sprayAft .5s ease-out}
+.voyage-splash.go::after{animation:sprayFore .5s ease-out}
+@keyframes sprayAft{
+  0%{opacity:.9;transform:translate(-5px,0)}
+  45%{opacity:.75;transform:translate(-9px,-5px)}
+  100%{opacity:0;transform:translate(-12px,0)}
+}
+@keyframes sprayFore{
+  0%{opacity:.9;transform:translate(5px,0)}
+  45%{opacity:.75;transform:translate(9px,-4px)}
+  100%{opacity:0;transform:translate(12px,1px)}
+}
+.voyage-bob{transform-origin:50% calc(100% - 3.5px);animation:rock 3.6s ease-in-out infinite}
+.voyage-bob svg{display:block}
+@keyframes rock{
+  0%,100%{transform:rotate(-2deg)}
+  50%{transform:rotate(2deg) translateY(.5px)}
 }
 
 /* mobile <details> menu */
@@ -91,30 +131,57 @@ nav > ul a.active::after{
 .nav-menu[open] > ul a:hover{background:var(--mist)}
 
 /* ============================ HERO ============================ */
+/* The sea is painted over the header's lower edge, so the header's bottom padding
+   keeps that band clear: the hero is centred in the open water above the swell and
+   grows the header, rather than running into the waves, when it doesn't fit.
+   --sea-h mirrors .sea's height:34vh / min-height:220px. By default the band runs
+   up to the boat's masthead (it rides the mid layer at 56% of the sea box and,
+   with heave, pitch and the captain sticker, reaches ~106px above it); on wide
+   screens the boat is moored in the open channel between copy and portrait
+   instead (see .boat) and only the far swell (42% of the box, less its crests)
+   needs clearing. Top padding clears the fixed nav and its voyage line (~85px). */
 header{
+  --sea-h:max(220px,34vh);
   position:relative;min-height:100vh;display:flex;align-items:center;
-  overflow:hidden;padding:6rem 0 0;
+  overflow:hidden;padding:6.25rem 0 calc(var(--sea-h) * .44 + 124px);
 }
+/* Copy on the left, capped so an open channel stays between it and the portrait;
+   the scroll cue sits under the portrait, closing the composition. */
 .hero-inner{
-  width:100%;max-width:1150px;margin:0 auto;padding:0 8vw;
-  display:grid;grid-template-columns:1.25fr .85fr;gap:5vw;align-items:center;
+  width:100%;max-width:var(--page-max);margin:0 auto;padding:0 var(--gutter);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:1fr auto;
+  column-gap:5vw;row-gap:1.4rem;align-items:center;
   position:relative;z-index:5;
 }
-.coord{
-  font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.16em;
-  color:var(--ocean);margin-bottom:1.3rem;
+.hero-copy{grid-column:1;grid-row:1 / 3;max-width:38rem}
+/* Shell prompt over the name. "whoami" is typed once the preloader has cleared
+   (main.js adds .booted); without JS it is simply shown, and with reduced motion
+   the global animation:none leaves it at its full 6ch. */
+.prompt{font-size:.7rem;letter-spacing:.04em;color:var(--faded);margin-bottom:.8rem;white-space:nowrap}
+.prompt .p-host{color:var(--ocean)}
+.prompt .p-path{color:var(--ink)}
+.prompt .typed{
+  display:inline-block;vertical-align:bottom;overflow:hidden;white-space:nowrap;
+  width:6ch;color:var(--ink);
 }
+.js:not(.booted) .prompt .typed{width:0}
+.booted .prompt .typed{animation:type .55s steps(6) .2s both}
+@keyframes type{from{width:0}}
+.prompt .p-comment{color:var(--faded);opacity:.8}
+/* the vh terms shrink the display type on short laptop screens so the hero
+   still clears the sea there instead of pushing it below the fold */
 h1{
   font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:.5px;
-  font-size:clamp(3rem,8.5vw,6rem);line-height:.98;
+  font-size:clamp(2.3rem,min(5.6vw,8vh),4rem);line-height:.98;
 }
-.hero-id{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin:1.1rem 0 1.6rem}
+.hero-id{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-top:1.1rem}
 .handle{
-  font-size:.72rem;letter-spacing:.1em;color:var(--ocean);
-  border:1px solid var(--hair);border-radius:2px;padding:.35rem .7rem;
+  font-size:.66rem;letter-spacing:.04em;color:var(--ocean);
+  border:1px solid var(--hair);border-radius:2px;padding:.3rem .65rem;
   transition:background .25s,border-color .25s;
 }
-.handle:hover{background:rgba(31,110,140,.07);border-color:var(--ocean)}
+.handle::before{content:"> ";color:var(--shallow)}
+.handle:hover,.handle.cta{background:rgba(31,110,140,.07);border-color:var(--ocean)}
 .poly-badge{
   display:inline-flex;align-items:center;gap:.5rem;
   border:1px solid var(--hair);border-radius:2px;padding:.3rem .7rem .3rem .5rem;
@@ -127,14 +194,78 @@ h1{
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4 L20 20 M20 4 L4 20' stroke='%231F6E8C' stroke-width='2.4' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 .hero-tagline{
-  font-size:clamp(1.5rem,3.4vw,2.5rem);line-height:1.1;max-width:18ch;margin-bottom:1.6rem;
+  font-size:clamp(1.15rem,min(2.3vw,3.4vh),1.6rem);line-height:1.15;
+  text-wrap:balance;margin:.8rem 0 1rem;
 }
 .hero-tagline em{color:var(--ocean)}
-.hero-sub{max-width:48ch;color:var(--faded);font-size:1.02rem}
+/* bio set as a shell comment: a mono "#" hangs in the left gutter */
+.hero-sub{
+  position:relative;max-width:62ch;color:var(--faded);font-size:.88rem;
+  padding-left:1.3rem;text-wrap:pretty;
+}
+.hero-sub::before{
+  content:"#";position:absolute;left:0;top:0;
+  font-family:'Space Mono',monospace;color:var(--shallow);
+}
 .hero-sub em{color:var(--ink);font-style:italic}
+.hero-status{margin-top:.8rem;font-size:.68rem;color:var(--ink);line-height:1.6}
+.hero-status .k{color:var(--ocean)}
+/* "live" dot: the compass's sonar ping in miniature */
+.led{
+  display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:.55rem;
+  background:var(--ocean);box-shadow:0 0 0 0 rgba(31,110,140,.45);
+  animation:led 2.8s ease-out infinite;vertical-align:1px;
+}
+@keyframes led{
+  0%{box-shadow:0 0 0 0 rgba(31,110,140,.45)}
+  70%,100%{box-shadow:0 0 0 6px rgba(31,110,140,0)}
+}
+
+/* Work in progress: a shell readout set as one of the page's chart cards (white,
+   hairline, 2px corners, mono label on top). Rows link down to the project cards. */
+.term{
+  margin-top:1.5rem;max-width:34rem;padding:0;   /* padding: stands down the page-section rule */
+  background:var(--white);border:1px solid var(--hair);border-radius:2px;
+}
+/* chart-pin corners, as on the portrait */
+.term::before,.term::after{
+  content:"";position:absolute;width:10px;height:10px;border:1.5px solid var(--ocean);
+}
+.term::before{top:-4px;left:-4px;border-right:0;border-bottom:0}
+.term::after{bottom:-4px;right:-4px;border-left:0;border-top:0}
+.term-bar{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:.65rem 1rem .55rem;border-bottom:1px solid var(--hair);
+}
+.term-title{
+  font-family:'Space Mono',monospace;font-size:.6rem;font-weight:400;line-height:1.4;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ocean);margin:0;
+}
+.term-meta{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faded)}
+.term-body{padding:.65rem 1rem .75rem;font-size:.68rem;line-height:1.75;color:var(--ink)}
+.term-line .ps{color:var(--ocean)}
+.term-line .c{color:var(--faded)}
+.wip{list-style:none;margin:.2rem 0 .15rem}
+.wip a{
+  display:grid;grid-template-columns:1.4ch 13ch minmax(0,1fr) auto;column-gap:.6rem;
+  align-items:baseline;padding:.1rem .4rem;margin:0 -.4rem;border-radius:2px;
+  color:var(--ink);transition:background .25s;
+}
+.wip a::after{content:"↓";color:var(--ocean);opacity:0;transition:opacity .25s}
+.wip a:hover,.wip a:focus-visible{background:rgba(31,110,140,.07)}
+.wip a:hover::after,.wip a:focus-visible::after{opacity:1}
+.wip .spin{color:var(--ocean);text-align:center}
+.wip .w-name{font-weight:700}
+.wip .w-state{color:var(--faded)}
+.cursor{
+  display:inline-block;width:.55em;height:1.05em;vertical-align:text-bottom;
+  background:var(--ocean);opacity:.8;animation:blink 1.1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0}}
 
 /* Portrait, chart-pinned */
 .portrait-frame{
+  grid-column:2;grid-row:1;
   position:relative;justify-self:center;width:min(300px,72vw);
   background:var(--white);padding:12px 12px 10px;border:1px solid var(--hair);
   border-radius:2px;box-shadow:0 18px 40px rgba(12,34,51,.13);
@@ -159,64 +290,53 @@ h1{
   text-align:center;padding-top:8px;text-transform:uppercase;
 }
 
-/* Scroll cue */
+/* Scroll cue, under the portrait */
 .scroll-cue{
-  position:absolute;bottom:calc(34vh + 1.2rem);left:8vw;z-index:6;
-  font-size:.66rem;letter-spacing:.18em;color:var(--ocean);
+  grid-column:2;grid-row:2;justify-self:end;
+  font-size:.66rem;letter-spacing:.06em;color:var(--ocean);
   transition:opacity .5s;
 }
 .scroll-cue.gone{opacity:0}
 
 /* Sea: waves + hero boat */
 .sea{position:absolute;left:0;right:0;bottom:0;height:34vh;min-height:220px;pointer-events:none;z-index:4}
-.sea svg.waves{position:absolute;bottom:0;left:0;width:200%;height:100%}
-.w0{animation:drift 13s linear infinite;opacity:.55}
-.w1{animation:drift 20s linear infinite}
-.w2{animation:drift 28s linear infinite reverse, shimmer 6s ease-in-out infinite;opacity:.85}
-@keyframes shimmer{0%,100%{opacity:.85}50%{opacity:.58}}
-@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sea svg.waves{position:absolute;bottom:0;left:0;width:100%;height:100%}
 
+/* Surge, heave and tilt are set per-frame by JS (main.js, renderHeroSea) from the
+   same swell model that draws the w1 path, so the hull is pinned to that exact
+   surface. bottom:0 is only the zero-point those offsets are measured from; the
+   17px origin offset is the hull's waterline (y=79 of the 96-unit boat SVG), so
+   the boat pitches about where it meets the water rather than about its keel. */
 .boat{
-  position:absolute;left:15%;bottom:calc(34vh * .5);
-  animation:bob 5.5s ease-in-out infinite;transform-origin:50% 100%;
+  position:absolute;left:15%;bottom:0;
+  transform-origin:50% calc(100% - 17px);will-change:transform;
 }
+/* Wide enough for an open channel between the copy (38rem, flush left) and the
+   300px portrait (flush right): moor the boat mid-channel, so its rig rises into
+   empty water and the header only has to clear the far swell. The hero column is
+   centred, so the channel's centre is 50% + (38rem - 300px) / 2 at any width;
+   60px is half the boat. Below 1240px the channel is too tight for its swing and
+   the full band is kept. */
+@media (min-width:1240px){
+  header{padding-bottom:calc(var(--sea-h) * .58 + 30px)}
+  .boat{left:calc(50% + (38rem - 300px) / 2 - 60px)}
+}
+.boat svg{display:block}
 @keyframes bob{
   0%,100%{transform:translateY(0) rotate(-1.2deg)}
   50%{transform:translateY(5px) rotate(1.3deg)}
 }
 /* captain's face sticker, riding above the hull */
 .captain{
-  position:absolute; rotate(100deg);left:5%;top:5px;transform:rotate(-30deg);
-  width:44px;height:64px;overflow:hidden;
-  border:0px solid var(--ink);background:
-    url('assets/sticker.png') center/cover no-repeat,
-    radial-gradient(circle at 50% 40%,#a9d3de00,#1f6d8c00);z-index:2;
-}
-.captain::after{ /* life-ring tick marks */
-  content:"";position:absolute;inset:-2px;border-radius:50%;
-  border:2px dotted rgba(242,247,249,.7);
+  position:absolute;left:5%;top:5px;transform:rotate(-30deg);
+  width:44px;height:64px;z-index:2;
+  background:url('assets/sticker.png') center/contain no-repeat;
 }
 
-/* ============================ MAIN / ROUTE ============================ */
-main{position:relative;max-width:1150px;margin:0 auto;padding:0 8vw}
-.route{
-  position:absolute;left:calc(8vw + 11px);top:2rem;bottom:0;
-  border-left:1.5px dashed var(--ocean);opacity:.45;
-}
-.route-boat{
-  position:absolute;left:calc(8vw + 11px);top:0;z-index:6;
-  transform:translate(-50%,0);will-change:transform;
-  display:flex;flex-direction:column;align-items:center;
-}
-.route-face{
-  width:20px;height:20px;border-radius:50%;overflow:hidden;margin-bottom:-2px;
-  border:1.5px solid var(--ink);background:
-    url('assets/sticker.png') center/cover no-repeat,
-    radial-gradient(circle at 50% 40%,#a9d3de,#1F6E8C);
-}
+/* ============================ MAIN ============================ */
+main{max-width:var(--page-max);margin:0 auto;padding:0 var(--gutter)}
 
-section{padding:6.5rem 0;padding-left:4.5rem;position:relative}
-.wp{position:absolute;left:-1px;top:7rem;line-height:0}
+section{padding:6.5rem 0;position:relative}
 .coord-line{
   font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.15em;
   color:var(--ocean);margin-bottom:.8rem;text-transform:uppercase;
@@ -229,33 +349,102 @@ h2 .sub{font-style:italic;color:var(--ocean);font-size:.62em}
 .section-note{color:var(--faded);font-size:.95rem;margin-bottom:3rem;max-width:54ch}
 .section-note.wide{max-width:70ch;font-size:1.02rem}
 
-/* Journal de bord */
+/* A heading with no note under it keeps the note's gap to the content */
+main section > h2 + :not(.section-note){margin-top:2.4rem}
+
+/* Small mono label over cards and entries */
+.tag{
+  display:block;font-family:'Space Mono',monospace;font-size:.6rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ocean);text-wrap:balance;
+}
+.tag.muted{color:var(--faded)}
+
+/* Purpose is the design file's markup verbatim, inline styles and all. It draws
+   its own wavy rule under the heading, so the shared h2 gap and underline stand down. */
+#purpose > h2{margin-bottom:0}
+#purpose > h2::after{content:none}
+
+/* Projects. The grid reveals as one block, not card by card: .reveal's
+   transform would otherwise override the hover lift. */
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem}
+.project{
+  border:1px solid var(--hair);border-radius:2px;background:var(--white);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:transform .3s, box-shadow .3s;
+}
+.project:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(12,34,51,.09)}
+/* landed on from the work-in-progress terminal */
+.project{scroll-margin-top:1.5rem}   /* on top of html's scroll-padding, clears the nav's voyage line */
+.project:target{border-color:var(--ocean);animation:targetPing 1.6s ease-out .3s}
+@keyframes targetPing{
+  0%{box-shadow:0 0 0 0 rgba(31,110,140,.45)}
+  100%{box-shadow:0 0 0 14px rgba(31,110,140,0)}
+}
+/* 16:9 frame for a GIF or screen recording; left empty, it shows a bare chart tile */
+.media{position:relative;aspect-ratio:16/9;border-bottom:1px solid var(--hair);background:var(--foam)}
+.media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media .pin-left{object-position:left center}
+.media:empty{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='none' stroke='%231F6E8C' stroke-width='1.2' opacity='.5'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%23F2F7F9' stroke='%231F6E8C' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='12' r='1.8' fill='%231F6E8C'/%3E%3C/svg%3E") center/40px no-repeat,
+    linear-gradient(rgba(12,34,51,.07) 1px, transparent 1px) center/26px 26px,
+    linear-gradient(90deg, rgba(12,34,51,.07) 1px, transparent 1px) center/26px 26px,
+    var(--foam);
+}
+.project-body{padding:1.5rem 1.6rem 1.6rem;display:flex;flex-direction:column;flex:1}
+/* Spans both columns with the image beside the text; the image fills the card's
+   height, pinned left so the screenshot's heading stays in view. */
+.project-wide{grid-column:1 / -1;flex-direction:row}
+.project-wide .media{flex:0 0 56%;aspect-ratio:auto;min-height:280px;border-bottom:0;border-right:1px solid var(--hair)}
+.project-wide .media img{object-position:left top}
+.project h3{font-weight:500;font-size:1.08rem;margin:.6rem 0 .45rem}
+.project p{color:var(--faded);font-size:.92rem;flex:1;text-wrap:pretty}
+.chips{
+  display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0 .9rem;list-style:none;
+  font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:var(--faded);
+}
+.chips li{border:1px solid rgba(12,34,51,.16);border-radius:2px;padding:.22rem .5rem}
+.project-link{
+  align-self:flex-start;font-family:'Space Mono',monospace;font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ocean);transition:color .25s;
+}
+a.project-link:hover{color:var(--ink)}
+.project-link.muted{color:var(--faded)}
+
+/* Experience */
 .port{
   display:grid;grid-template-columns:150px 1fr;gap:2.3rem;
   padding:2rem 0;border-top:1px solid var(--hair);
 }
+.port:last-child{border-bottom:1px solid var(--hair)}
 .port .when{font-size:.7rem;color:var(--ocean);padding-top:.4rem;line-height:1.5}
 .port .when .place{color:var(--faded)}
 .port h3{font-weight:500;font-size:1.08rem;margin-bottom:.4rem}
-.port p{color:var(--faded);max-width:60ch;font-size:.95rem}
+.port p{color:var(--faded);max-width:62ch;font-size:.95rem;text-wrap:pretty}
 
-/* Soundings cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.3rem}
-.card{
-  border:1px solid var(--hair);border-radius:2px;padding:1.8rem;background:var(--white);
-  transition:transform .3s, box-shadow .3s;display:flex;flex-direction:column;
-  color:inherit;
+/* Education */
+.edu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+.edu-card{
+  border:1px solid var(--hair);border-top:3px solid var(--ocean);border-radius:2px;
+  background:var(--white);padding:1.6rem;
 }
-a.card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(12,34,51,.09)}
-.card:not(a):hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(12,34,51,.09)}
-.card .tag{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ocean)}
-.card h3{font-weight:500;margin:.7rem 0 .45rem;font-size:1.05rem;color:var(--ink)}
-.card p{color:var(--faded);font-size:.9rem;flex:1}
-.card-link{
-  font-size:.62rem;letter-spacing:.12em;color:var(--ocean);margin-top:1rem;
-  opacity:.75;transition:opacity .25s;
-}
-a.card:hover .card-link{opacity:1}
+.edu-card:nth-child(2){border-top-color:var(--shallow)}
+.edu-card:nth-child(3){border-top-color:var(--wave2)}
+.edu-card h3{font-weight:500;font-size:1.05rem;margin:.55rem 0 .3rem}
+.edu-card .tag.muted{margin-bottom:.6rem}
+.edu-card p{color:var(--faded);font-size:.92rem;text-wrap:pretty}
+.edu-list{color:var(--faded);font-size:.92rem;list-style:none;margin:0;padding:0}
+.edu-list li{position:relative;padding-left:1rem;text-wrap:pretty}
+.edu-list li+li{margin-top:.4rem}
+.edu-list li::before{content:"–";position:absolute;left:0;color:var(--ocean)}
+
+/* Beyond the lab */
+.crew{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+.crew article{border-left:2px solid var(--ocean);padding:.2rem 0 .2rem 1.2rem}
+.crew article:nth-child(2){border-left-color:var(--shallow)}
+.crew article:nth-child(3){border-left-color:var(--wave2)}
+.crew h3{font-weight:500;font-size:1.02rem;margin:.4rem 0 .3rem}
+.crew p{color:var(--faded);font-size:.92rem}
 
 /* ============================ COMPASS ============================ */
 .compass-radial{display:flex;justify-content:center;margin-top:1rem}
@@ -328,7 +517,7 @@ a.card:hover .card-link{opacity:1}
 
 /* ============================ FOOTER ============================ */
 footer{
-  max-width:1150px;margin:0 auto;padding:5.5rem 8vw 3rem;
+  max-width:var(--page-max);margin:0 auto;padding:5.5rem var(--gutter) 3rem;
   position:relative;overflow:hidden;
 }
 .footer-top,.footer-fine{position:relative;z-index:1}
@@ -350,33 +539,45 @@ footer .links a:hover{color:var(--ocean)}
 
 /* ============================ RESPONSIVE ============================ */
 @media (max-width:980px){
-  .hero-inner{grid-template-columns:1fr;gap:2.5rem}
+  .hero-inner{grid-template-columns:1fr;grid-template-rows:none;gap:2.5rem}
+  .hero-copy,.portrait-frame,.scroll-cue{grid-column:auto;grid-row:auto}
   .portrait-frame{justify-self:start;order:-1;width:min(240px,60vw);transform:rotate(-1.2deg)}
+  .scroll-cue{justify-self:start}
+  .edu,.crew{grid-template-columns:1fr}
+}
+/* eight nav links stop fitting on one line below this */
+@media (max-width:900px){
+  nav{flex-wrap:wrap}
+  .nav-links{order:3;flex-basis:100%}   /* the course alone on a second row */
+  .nav-links > ul{display:none}
+  .nav-menu{display:block}
+  header{padding-top:7.25rem}           /* clear the taller, wrapped nav */
 }
 @media (max-width:820px){
-  nav{padding:1.1rem 1.6rem}
+  nav{padding:.9rem 1.6rem .45rem}
   .fix-wrap{grid-template-columns:1fr;padding:2rem}
   .compass-radial{display:none}
   .compass-tags{display:block}
   .footer-top{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:720px){
-  nav > ul{display:none}
-  .nav-menu{display:block}
-  header{padding-top:5rem}
-  .hero-inner{padding:0 1.5rem}
-  .scroll-cue{left:1.5rem}
-  main{padding:0 1.5rem}
-  .route{left:calc(1.5rem + 11px)}
-  .route-boat{left:calc(1.5rem + 11px)}
-  section{padding-left:2.4rem}
-  .wp{transform:scale(.85)}
+  :root{--gutter:1.5rem}
+  .projects{grid-template-columns:1fr}
+  .project-wide{flex-direction:column}
+  .project-wide .media{flex:none;aspect-ratio:16/9;min-height:0;border-right:0;border-bottom:1px solid var(--hair)}
   .port{grid-template-columns:1fr;gap:.5rem}
   .port .when{padding-top:0}
-  footer{padding:4rem 1.5rem 2.5rem}
+  footer{padding-top:4rem;padding-bottom:2.5rem}
+}
+/* terminal rows: status drops under the process name */
+@media (max-width:560px){
+  .wip a{grid-template-columns:1.4ch minmax(0,1fr)}
+  .wip a::after{display:none}
+  .wip .w-state{grid-column:2}
+  .prompt .p-comment{display:none}
 }
 @media (max-width:400px){
-  h1{font-size:2.8rem}
+  h1{font-size:2.1rem}
   .hero-id{gap:.5rem}
   .fix-wrap{padding:1.4rem}
 }
@@ -386,41 +587,52 @@ footer .links a:hover{color:var(--ocean)}
    preloader reveal · title underlines · compass sonar · harbour
    ============================================================ */
 
-/* ---------- Preloader: ocean drains upward behind a wave crest ---------- */
+/* ---------- Preloader: title card, one wave passage, then the panel fades out ---------- */
 #preloader{
   position:fixed;inset:0;z-index:1000;overflow:hidden;
-  transform:translateY(0);
-  transition:transform 1.3s cubic-bezier(.76,0,.24,1);
-  will-change:transform;
+  transition:opacity .6s ease;
 }
-#preloader.done{transform:translateY(-112%)}
-.pl-fill{
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,#2E8199 0%,#1B6076 45%,#0C2233 100%);
+#preloader.done{opacity:0;pointer-events:none}
+/* the page's paper colour: the footage is tinted onto it, and it stands in
+   if the video decodes late, so nothing ever flashes dark or white */
+.pl-fill{position:absolute;inset:0;background:var(--mist)}
+/* the wave footage fills the panel and fades with it. Multiply turns its white
+   paper into the mist fill underneath while leaving the blues almost untouched;
+   the slight brightness lift first clips the compressed near-white paper to pure
+   white, so it lands exactly on --mist instead of a greyer, blotchy shade */
+.pl-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  mix-blend-mode:multiply;filter:brightness(1.05);
+  opacity:0;transition:opacity .5s ease;
 }
-/* wave crest hangs just below the panel; becomes the receding waterline */
-.pl-wave{
-  position:absolute;left:-10%;top:100%;width:120%;height:15vh;min-height:96px;
-  animation:plDrift 8s ease-in-out infinite;
+.pl-video.ready{opacity:1}
+
+/* title card sits over the footage and is wiped away left to right by the
+   incoming wave: main.js moves --wipe-a (fully cleared) and --wipe-b (fully
+   opaque) along with the wave front, so the soft band rides the crest */
+.pl-title{
+  position:absolute;inset:0;z-index:3;background:var(--mist);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 1.5rem;
+  --wipe-a:-2px;--wipe-b:-1px;
+  -webkit-mask-image:linear-gradient(90deg,transparent var(--wipe-a),#000 var(--wipe-b));
+  mask-image:linear-gradient(90deg,transparent var(--wipe-a),#000 var(--wipe-b));
 }
-.pl-wave path{stroke:none}
-.pl-front path{fill:#0C2233}
-.pl-back{animation-duration:11s;opacity:.85}
-.pl-back path{fill:#123A50}
-.pl-back{top:calc(100% - 10px)}
-@keyframes plDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(-6%)}}
-.pl-brand{
-  position:absolute;left:0;right:0;top:44%;transform:translateY(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:1.1rem;z-index:2;
-  transition:opacity .45s ease;
+.pl-name,.pl-sub{animation:plNameIn .55s ease-out .06s both}
+.pl-name{font-size:clamp(2.4rem,7vw,5rem);letter-spacing:.5px;line-height:1;color:var(--ink)}
+.pl-sub{
+  font-size:clamp(.56rem,1.5vw,.7rem);letter-spacing:.3em;line-height:1.9;
+  text-transform:uppercase;color:var(--ocean);text-wrap:balance;
+  padding:0 1rem;margin:1.05rem -.3em 0 0;
 }
-#preloader.done .pl-brand{opacity:0}
-.pl-boat{animation:bob 3.4s ease-in-out infinite;transform-origin:50% 100%}
-.pl-text{
-  color:#9FC6D3;font-size:.68rem;letter-spacing:.3em;
-  animation:plPulse 1.9s ease-in-out infinite;
+.pl-rule{
+  display:block;width:clamp(96px,13vw,132px);height:2px;border-radius:2px;margin-top:2.3rem;
+  background:var(--ocean);opacity:.85;transform-origin:left center;
+  animation:plDraw 1.05s cubic-bezier(.4,0,.2,1) .1s both;
 }
-@keyframes plPulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes plNameIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes plDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
 /* ---------- Animated wavy underline beneath each section title ---------- */
 main section > h2::after{
@@ -445,6 +657,7 @@ main section > h2::after{
 }
 
 /* ---------- Harbour waterline above the footer ---------- */
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .harbour-waves{position:absolute;top:0;left:0;right:0;height:56px;pointer-events:none;z-index:0}
 .harbour-waves .hw{position:absolute;bottom:0;left:0;width:200%;height:100%}
 .harbour-waves .hw-back{fill:var(--wave2);opacity:1;animation:drift 18s linear infinite reverse}
