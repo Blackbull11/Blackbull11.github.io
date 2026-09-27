@@ -1,6 +1,6 @@
 /* ============================================================
    Andrea Signoretti — Portfolio interactions
-   scroll reveals · nav voyage boat + active link · compass · the fix
+   scroll reveals · nav voyage boat + active link · compass
    No libraries. Transform/opacity only. rAF-throttled.
    ============================================================ */
 (function () {
@@ -480,6 +480,26 @@
     sail();
   }
 
+  /* ---------- Nav name: only once the hero's h1 has scrolled under the nav ---------- */
+  var mark = document.querySelector('nav .mark');
+  var heroName = document.querySelector('header h1');
+  if (mark && heroName && IO) {
+    var navEl = document.querySelector('nav');
+    var markObs = null;
+    var watchName = function () {
+      if (markObs) markObs.disconnect();
+      markObs = new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        mark.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0);
+      }, { rootMargin: '-' + navEl.offsetHeight + 'px 0px 0px 0px' });
+      markObs.observe(heroName);
+    };
+    watchName();
+    window.addEventListener('resize', watchName, { passive: true });
+  } else if (mark) {
+    mark.classList.add('show');
+  }
+
   /* Close mobile menu on link click */
   var menu = document.querySelector('.nav-menu');
   if (menu) {
@@ -606,26 +626,5 @@
       g.appendChild(pills); frag.appendChild(g);
     });
     tagWrap.appendChild(frag);
-  }
-
-  /* ---------- The Fix ---------- */
-  var gh = document.getElementById('gh'), ga = document.getElementById('ga'), gf = document.getElementById('gf');
-  var cap = document.getElementById('cap');
-  var btns = { mh: document.getElementById('mh'), ma: document.getElementById('ma'), mb: document.getElementById('mb') };
-  if (gh && ga && gf && cap) {
-    var MODES = {
-      mh: { show: [gh], text: '<b>One bearing, one line.</b> Human intuition points in the right direction — but alone, the position stays uncertain anywhere along the line.' },
-      ma: { show: [ga], text: '<b>One bearing, one line.</b> The machine’s reading is precise — but a single line still isn’t a position.' },
-      mb: { show: [gh, ga, gf], text: '<b>Two bearings cross: a fix.</b> Neither navigator finds the boat alone. Together, judgment and computation locate it exactly — that is augmented reasoning.' }
-    };
-    var setMode = function (id) {
-      [gh, ga, gf].forEach(function (g) { g.classList.add('hidden'); });
-      MODES[id].show.forEach(function (g) { g.classList.remove('hidden'); });
-      cap.innerHTML = MODES[id].text;
-      Object.keys(btns).forEach(function (k) { btns[k].classList.toggle('on', k === id); });
-    };
-    Object.keys(btns).forEach(function (id) {
-      btns[id].addEventListener('click', function () { setMode(id); });
-    });
   }
 })();

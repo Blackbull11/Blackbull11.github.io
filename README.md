@@ -10,8 +10,8 @@ no frameworks, no libraries — deployable as static files.
 
 ```
 index.html      all markup + inline SVGs
-styles.css      tokens, layout, compass, The Fix, responsive, a11y
-main.js         scroll reveals, nav voyage boat + active link, compass needle, Fix toggles
+styles.css      tokens, layout, compass, responsive, a11y
+main.js         scroll reveals, nav voyage boat + active link, compass needle
 favicon.svg     the boat mark
 cv.pdf          placeholder — replace with your real resume (keep the filename)
 assets/         portrait.jpg, sticker.png, polytechnique.svg  (see assets/README.md)
