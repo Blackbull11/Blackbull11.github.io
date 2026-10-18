@@ -4,7 +4,7 @@ A single-page personal portfolio on a sea-navigation theme, centered on the aspi
 contribute to **AI-human augmented reasoning**. Vanilla HTML + CSS + JS, no build step,
 no frameworks, no libraries — deployable as static files.
 
-**Live:** https://blackbull11.github.io/  (once GitHub Pages is enabled — see below)
+**Live:** https://aindreasi.tech/ (GitHub Pages, custom domain; `blackbull11.github.io` redirects here)
 
 ## Structure
 
@@ -35,6 +35,18 @@ python -m http.server 8000
 3. Wait ~1 minute. The site publishes at
    `https://blackbull11.github.io/<repo>/` (or `https://blackbull11.github.io/` for the
    `Blackbull11.github.io` repo).
+
+## Custom domain
+
+The `CNAME` file holds `aindreasi.tech`. DNS at OVH (zone `aindreasi.tech`):
+
+| Type | Name | Target |
+|---|---|---|
+| A | (apex) | 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153 |
+| AAAA | (apex) | 2606:50c0:8000::153, 2606:50c0:8001::153, 2606:50c0:8002::153, 2606:50c0:8003::153 |
+| CNAME | www | blackbull11.github.io. |
+
+Leave `graind` (A → the VPS) untouched. Then **Settings → Pages → Enforce HTTPS**.
 
 ## To finish
 
