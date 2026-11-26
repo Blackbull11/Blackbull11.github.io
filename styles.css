@@ -360,10 +360,48 @@ main section > h2 + :not(.section-note){margin-top:2.4rem}
 }
 .tag.muted{color:var(--faded)}
 
-/* Purpose is the design file's markup verbatim, inline styles and all. It draws
-   its own wavy rule under the heading, so the shared h2 gap and underline stand down. */
-#purpose > h2{margin-bottom:0}
-#purpose > h2::after{content:none}
+/* Purpose: copy beside the live brain figure (brain.js), three themes underneath */
+#purpose{padding:clamp(3.5rem,8vw,6rem) 0;border-top:1px solid var(--hair)}
+#purpose > h2{font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.06;max-width:24ch}
+.purpose-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:clamp(1.5rem,4vw,3.5rem);align-items:center;
+}
+.purpose-lead{font-size:clamp(1.2rem,2.2vw,1.55rem);line-height:1.34;text-wrap:pretty}
+.purpose-lead em{color:var(--ocean)}
+.purpose-copy > p:not(.purpose-lead){color:var(--faded);font-size:1rem;margin-top:1.1rem;text-wrap:pretty}
+.purpose-cards{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;
+  margin-top:clamp(2rem,4vw,3rem);
+}
+.purpose-card{border:1px solid var(--hair);border-radius:2px;background:var(--white);padding:1.2rem 1.3rem}
+.purpose-card p{color:var(--faded);font-size:.92rem;margin-top:.4rem;text-wrap:pretty}
+
+/* The figure is one of the page's chart cards: white, hairline, pinned corners */
+.neuro-fig{position:relative;margin:0;background:var(--white);border:1px solid var(--hair);border-radius:2px}
+.neuro-fig::before,.neuro-fig::after{
+  content:"";position:absolute;width:10px;height:10px;border:1.5px solid var(--ocean);
+}
+.neuro-fig::before{top:-4px;left:-4px;border-right:0;border-bottom:0}
+.neuro-fig::after{bottom:-4px;right:-4px;border-left:0;border-top:0}
+.neuro-bar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .9rem;
+  padding:.55rem 1rem .5rem;border-bottom:1px solid var(--hair);font-size:.6rem;
+}
+.neuro-title{flex:1 1 auto;letter-spacing:.14em;text-transform:uppercase;color:var(--ocean)}
+.neuro-meta{color:var(--ink);letter-spacing:.04em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.neuro-meta .led{margin-right:.45rem}
+.neuro-kick{
+  font-size:.6rem;letter-spacing:.06em;color:var(--ocean);background:none;cursor:pointer;
+  border:1px solid var(--hair);border-radius:2px;padding:.22rem .6rem;
+  transition:background .25s,border-color .25s;
+}
+.neuro-kick:hover{background:rgba(31,110,140,.07);border-color:var(--ocean)}
+#neuroCanvas{display:block;width:100%;height:auto;aspect-ratio:600/520;cursor:crosshair;touch-action:manipulation}
+.neuro-fig figcaption{
+  padding:.65rem 1rem .8rem;border-top:1px solid var(--hair);
+  font-size:.78rem;line-height:1.5;color:var(--faded);text-wrap:pretty;
+}
 
 /* Projects. The grid reveals as one block, not card by card: .reveal's
    transform would otherwise override the hover lift. */
@@ -385,6 +423,14 @@ main section > h2 + :not(.section-note){margin-top:2.4rem}
 .media{position:relative;aspect-ratio:16/9;border-bottom:1px solid var(--hair);background:var(--foam)}
 .media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .media .pin-left{object-position:left center}
+/* an inline SVG drawing fills its frame over a bare chart grid */
+.media > svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.media-grid{
+  background:
+    linear-gradient(rgba(12,34,51,.07) 1px, transparent 1px) center/26px 26px,
+    linear-gradient(90deg, rgba(12,34,51,.07) 1px, transparent 1px) center/26px 26px,
+    var(--foam);
+}
 .media:empty{
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' fill='none' stroke='%231F6E8C' stroke-width='1.2' opacity='.5'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%23F2F7F9' stroke='%231F6E8C' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='12' r='1.8' fill='%231F6E8C'/%3E%3C/svg%3E") center/40px no-repeat,
@@ -521,6 +567,8 @@ footer .links a:hover{color:var(--ocean)}
   .portrait-frame{justify-self:start;order:-1;width:min(240px,60vw);transform:rotate(-1.2deg)}
   .scroll-cue{justify-self:start}
   .edu,.crew{grid-template-columns:1fr}
+  .purpose-grid{grid-template-columns:1fr}
+  .neuro-fig{max-width:640px}
 }
 /* seven nav links stop fitting on one line below this */
 @media (max-width:900px){
@@ -539,6 +587,7 @@ footer .links a:hover{color:var(--ocean)}
 @media (max-width:720px){
   :root{--gutter:1.5rem}
   .projects{grid-template-columns:1fr}
+  .purpose-cards{grid-template-columns:1fr}
   .project-wide{flex-direction:column}
   .project-wide .media{flex:none;aspect-ratio:16/9;min-height:0;border-right:0;border-bottom:1px solid var(--hair)}
   .port{grid-template-columns:1fr;gap:.5rem}

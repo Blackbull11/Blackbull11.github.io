@@ -1,8 +1,9 @@
 # Andrea Signoretti — Portfolio
 
-A single-page personal portfolio on a sea-navigation theme, centered on the aspiration to
-contribute to **AI-human augmented reasoning**. Vanilla HTML + CSS + JS, no build step,
-no frameworks, no libraries — deployable as static files.
+A single-page personal portfolio on a sea-navigation theme, centered on the move into
+**computational neuroscience**: how natural systems learn, and what artificial ones can take
+from them. Vanilla HTML + CSS + JS, no build step, no frameworks, no libraries — deployable
+as static files.
 
 **Live:** https://aindreasi.tech/ (GitHub Pages, custom domain; `blackbull11.github.io` redirects here)
 
@@ -12,6 +13,8 @@ no frameworks, no libraries — deployable as static files.
 index.html      all markup + inline SVGs
 styles.css      tokens, layout, compass, responsive, a11y
 main.js         scroll reveals, nav voyage boat + active link, compass needle
+brain.js        Purpose figure: a live spiking network (nonlinear Hawkes process with
+                short-term synaptic depression) on a nautical chart of the brain
 favicon.svg     the boat mark
 cv.pdf          placeholder — replace with your real resume (keep the filename)
 assets/         portrait.jpg, sticker.png, polytechnique.svg  (see assets/README.md)

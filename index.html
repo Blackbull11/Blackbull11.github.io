@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Andrea Signoretti — AI-Human Augmented Reasoning</title>
-<meta name="description" content="Andrea Signoretti — engineering student at École Polytechnique and researcher-in-training in multi-agent and neuro-symbolic systems, building AI that reasons with people rather than instead of them.">
+<title>Andrea Signoretti — Computational Neuroscience &amp; AI</title>
+<meta name="description" content="Andrea Signoretti — applied mathematics student at École Polytechnique (X24), heading into computational neuroscience: how natural systems learn, and what artificial ones can take from them.">
 <meta name="author" content="Andrea Signoretti">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Andrea Signoretti — AI-Human Augmented Reasoning">
-<meta property="og:description" content="The chart of a journey toward AI-human augmented reasoning: where it started, what I've built, and the heading I've set.">
+<meta property="og:title" content="Andrea Signoretti — Computational Neuroscience &amp; AI">
+<meta property="og:description" content="The chart of a journey toward computational neuroscience: where it started, what I've built, and the heading I've set.">
 <meta property="og:url" content="https://aindreasi.tech/">
 <meta property="og:image" content="https://aindreasi.tech/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <link rel="preload" href="assets/wave-intro-hd.mp4" as="video" type="video/mp4">
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=16">
 <noscript><style>#preloader{display:none!important}</style></noscript>
 </head>
 <body>
@@ -96,10 +96,10 @@
 
       <h1>Andrea Signoretti</h1>
 
-      <p class="hero-tagline serif">Building reliable and human-compatible AI for high-stakes applications.</p>
+      <p class="hero-tagline serif">Understanding how natural systems <em>learn</em> with the tools of applied mathematics, and carrying it over to artificial ones.</p>
 
-      <p class="hero-sub">Agentic LLM systems and ML models for applied AI in high stakes environments and decision-making applications. Multi-agent synergistic reasoning over knowledge graphs at Orange Innovation (paper targeting JFSMA @ PFIA 2027), and applied AI for investment decisions at Panthera Solutions.</p>
-      <p class="hero-status mono"><span class="led" aria-hidden="true"></span><span class="k">status</span>: open to a 6-month applied AI research internship · from 04/2027</p>
+      <p class="hero-sub">Applied maths at École Polytechnique, now heading into computational neuroscience: post-training a multimodal LLM on brain MRI, and from January 2027 a CMAP research project on estimating synaptic weights in spiking neuron models. Before that, multi-agent reasoning at Orange Innovation (paper targeting JFSMA @ PFIA 2027) and applied AI for investment decisions at Panthera Solutions.</p>
+      <p class="hero-status mono"><span class="led" aria-hidden="true"></span><span class="k">status</span>: open to a 4–6 month computational neuroscience internship · from 04/2027</p>
 
       <div class="hero-id">
         <a class="handle cta mono" href="https://www.linkedin.com/in/andrea-signoretti/">LinkedIn ↗</a>
@@ -117,6 +117,11 @@
         <div class="term-body mono">
           <p class="term-line"><span class="ps">$</span> ps --wip <span class="c"># click a process to jump to it</span></p>
           <ul class="wip">
+            <li><a href="#proj-neuroqa">
+              <span class="spin" aria-hidden="true">●</span>
+              <span class="w-name">neuroqa</span>
+              <span class="w-state">GRPO runs vs a blind text-only control</span>
+            </a></li>
             <li><a href="#proj-masynreas">
               <span class="spin" aria-hidden="true">●</span>
               <span class="w-name">masynreas</span>
@@ -213,31 +218,45 @@
 <!-- ============================ MAIN ============================ -->
 <main id="main">
   <!-- ---------- WPT 01 · Purpose ---------- -->
-  <section id="purpose" style="padding:clamp(3.5rem,8vw,6rem) 0;border-top:1px solid rgba(12,34,51,.22)">
-    <p style="font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.16em;color:#1F6E8C;text-transform:uppercase;margin-bottom:.7rem">01 — Purpose</p>
-    <h2 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(1.9rem,4vw,2.9rem);line-height:1.06;max-width:26ch">A seamless integration of AI into humanity</h2>
-    <div style="height:8px;width:120px;margin:.8rem 0 2rem;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 8'%3E%3Cpath d='M0 5 Q4.5 1 9 5 T18 5 T27 5 T36 5' fill='none' stroke='%231F6E8C' stroke-width='1.5'/%3E%3C/svg%3E&quot;);background-repeat:repeat-x;background-size:36px 8px;animation:uDrift 1.8s linear infinite"></div>
+  <section id="purpose" aria-labelledby="purpose-h">
+    <p class="coord-line">WPT 01 — PURPOSE</p>
+    <h2 id="purpose-h">How does a brain learn, and what can AI take from it?</h2>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(1.5rem,4vw,3.5rem);align-items:start" data-reveal="">
-      <div style="min-width:0">
-        <p style="font-family:'Instrument Serif',serif;font-size:clamp(1.2rem,2.2vw,1.55rem);line-height:1.34;text-wrap:pretty">AI is a breakthrough technology and already essential infrastructure. But economic incentives steered its development toward <em style="font-style:italic;color:#1F6E8C">replacing</em> human work rather than <em style="font-style:italic;color:#1F6E8C">interacting</em> with human judgment.</p>
-        <p style="color:#52707D;font-size:1rem;margin-top:1.2rem;text-wrap:pretty">Fully autonomous agents only take you so far. Without explainability, security, and a perception of the world shared with their operator, they cannot be trusted where the stakes are real — defense, telecom operations, capital allocation. Trust is the binding constraint on deployment, not capability.</p>
-        <p style="color:#52707D;font-size:1rem;margin-top:1rem;text-wrap:pretty">I want to contribute to Human-Compatible AI research: adapting AI to the humanity for a sustainable future, rather than adapting humans to AI constrainrs.</p>
+    <div class="purpose-grid">
+      <div class="purpose-copy reveal">
+        <p class="purpose-lead serif">A brain <em>learns</em> from a handful of examples, on about twenty watts, with noisy spikes and synapses that only see what happens next to them. Our best models need oceans of data and power, and still don't <em>generalize</em> the way it does.</p>
+        <p>I come to it from applied mathematics. A network of spiking neurons can be written as a stochastic process (Hawkes processes, piecewise-deterministic Markov processes), and its mean-field limit shows how collective rhythms emerge from many noisy units, and where that picture stops holding.</p>
+        <p>That is the research I want to do: model how the brain learns and processes information from experimental data, then carry what we find over to artificial systems.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:1rem;min-width:0">
-        <div style="border:1px solid rgba(12,34,51,.22);border-radius:2px;background:#FFFFFF;padding:1.2rem 1.3rem">
-          <p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#1F6E8C;text-transform:uppercase">Explainability</p>
-          <p style="color:#52707D;font-size:.92rem;margin-top:.4rem">Symbolic structure over neural inference, so a decision can be traced rather than trusted on faith.</p>
+
+      <!-- Live figure: brain.js charts the brain as an island and runs a small
+           spiking network on it (Hawkes process + short-term synaptic depression),
+           with a spike raster and the population rate underneath. -->
+      <figure class="neuro-fig reveal" id="neuroFig">
+        <div class="neuro-bar mono">
+          <span class="neuro-title">fig. 01 · a live spiking network</span>
+          <span class="neuro-meta"><span class="led" aria-hidden="true"></span><span id="neuroRate">ν = — Hz</span></span>
+          <button type="button" class="neuro-kick mono" id="neuroKick">stimulate ↯</button>
         </div>
-        <div style="border:1px solid rgba(12,34,51,.22);border-radius:2px;background:#FFFFFF;padding:1.2rem 1.3rem">
-          <p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#1F6E8C;text-transform:uppercase">Alignment</p>
-          <p style="color:#52707D;font-size:.92rem;margin-top:.4rem">Constraints that hold at runtime — learned shipping systems inside intelligence services and telecom operations.</p>
-        </div>
-        <div style="border:1px solid rgba(12,34,51,.22);border-radius:2px;background:#FFFFFF;padding:1.2rem 1.3rem">
-          <p style="font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#1F6E8C;text-transform:uppercase">Shared perception of their environment</p>
-          <p style="color:#52707D;font-size:.92rem;margin-top:.4rem">Making sure models and agents understand the environment in the same way as the human and stick to this perception, through KG perhaps.</p>
-        </div>
-      </div>
+        <canvas id="neuroCanvas" width="600" height="520" role="img"
+                aria-label="A brain drawn as an island on a nautical chart, with a network of neurons firing on it. Waves of spikes spread across it, die out and return, shown below as a spike raster and a population-rate curve."></canvas>
+        <figcaption>About seventy stochastic neurons, run as a nonlinear Hawkes process with short-term synaptic depression. A wave spreads, uses up its synapses, dies out and comes back; in the raster, sorted front to back, it shows as a slanted band. Click the chart to stimulate a neuron.</figcaption>
+      </figure>
+    </div>
+
+    <div class="purpose-cards">
+      <article class="purpose-card reveal">
+        <span class="tag">Spiking networks</span>
+        <p>Neurons as point processes. Mean-field limits turn many noisy spikes into tractable equations; sparse and finite-size networks need sharper tools.</p>
+      </article>
+      <article class="purpose-card reveal">
+        <span class="tag">Synaptic plasticity</span>
+        <p>Synapses adapt from local signals only. Short-term plasticity alone can make a whole network oscillate, as in the live chart.</p>
+      </article>
+      <article class="purpose-card reveal">
+        <span class="tag">Connectivity inference</span>
+        <p>Recovering synaptic weights from recorded spikes, with optimal control: my research project at CMAP, starting January 2027.</p>
+      </article>
     </div>
   </section>
 
@@ -245,11 +264,71 @@
   <section id="projects" aria-labelledby="projects-h" class="reveal">
     <p class="coord-line">WPT 02 — PROJECTS</p>
     <h2 id="projects-h">Personal Projects</h2>
-    <p class="section-note">Seven projects, from research prototypes to a platform in production.</p>
+    <p class="section-note">Eight projects, from research prototypes to a platform in production.</p>
 
     <!-- An empty .media frame shows a bare chart tile. To fill one, put an <img> or
          <video> inside it (GIFs and screen recordings work) — see assets/README.md. -->
     <div class="projects reveal">
+      <!-- featured, full width: the schematic of the evaluation sits beside the text -->
+      <article class="project project-wide" id="proj-neuroqa">
+        <div class="media media-grid">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Evaluation design: the multimodal model gets the brain MRI and the question; a blind control gets the question only. The gap between their answers is what reading the scan adds.">
+            <defs>
+              <marker id="nqArrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L8 4 L0 8 Z" fill="#0C2233" fill-opacity=".6"/>
+              </marker>
+            </defs>
+            <text x="28" y="38" font-family="Space Mono, monospace" font-size="9" letter-spacing="1.6" fill="#1F6E8C">EVALUATION DESIGN</text>
+            <text x="28" y="63" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="20" fill="#0C2233">Does the model read the scan?</text>
+            <!-- the scan: an axial slice, drawn -->
+            <rect x="28" y="80" width="150" height="176" rx="2" fill="#0C2233"/>
+            <text x="38" y="96" font-family="Space Mono, monospace" font-size="7.5" letter-spacing="1.2" fill="#7FB6C6">BRAIN MRI</text>
+            <ellipse cx="103" cy="172" rx="54" ry="66" fill="#15324A" stroke="#9FC3D1" stroke-width="2.2"/>
+            <ellipse cx="103" cy="172" rx="47" ry="59" fill="#2A5A73"/>
+            <path d="M146.1 172.0 L147.4 174.0 L147.8 176.0 L147.3 177.9 L146.0 179.6 L144.2 181.2 L142.4 182.6 L141.1 184.0 L140.6 185.6 L140.8 187.5 L141.7 189.8 L142.6 192.2 L143.3 194.7 L143.3 196.8 L142.5 198.5 L140.9 199.6 L138.8 200.3 L136.7 200.7 L134.9 201.3 L133.8 202.3 L133.3 204.1 L133.3 206.4 L133.5 209.1 L133.5 211.8 L133.0 214.0 L131.8 215.4 L130.1 215.8 L128.1 215.6 L126.0 214.9 L124.0 214.5 L122.5 214.7 L121.5 215.8 L120.7 217.8 L120.1 220.4 L119.3 222.9 L118.3 224.9 L116.9 225.9 L115.2 225.8 L113.4 224.7 L111.6 223.2 L109.9 221.7 L108.5 220.9 L107.1 221.2 L105.8 222.4 L104.4 224.4 L103.0 226.4 L101.5 228.0 L99.9 228.6 L98.3 227.9 L97.0 226.3 L95.7 224.0 L94.6 221.8 L93.5 220.1 L92.2 219.4 L90.7 219.7 L88.9 220.8 L87.0 222.0 L85.0 222.9 L83.3 222.9 L82.0 221.9 L81.1 219.8 L80.6 217.2 L80.3 214.5 L79.8 212.3 L79.0 210.8 L77.6 210.2 L75.7 210.2 L73.6 210.4 L71.5 210.4 L69.7 209.8 L68.6 208.4 L68.3 206.2 L68.5 203.6 L69.0 201.0 L69.3 198.6 L69.2 196.7 L68.3 195.3 L66.7 194.3 L64.7 193.5 L62.7 192.6 L61.1 191.3 L60.3 189.5 L60.4 187.4 L61.2 185.1 L62.5 182.9 L63.6 180.8 L64.2 178.9 L64.0 177.2 L63.0 175.5 L61.5 173.8 L59.9 172.0 L58.6 170.0 L58.2 168.0 L58.7 166.1 L60.0 164.4 L61.8 162.8 L63.6 161.4 L64.9 160.0 L65.4 158.4 L65.2 156.5 L64.3 154.2 L63.4 151.8 L62.7 149.3 L62.7 147.2 L63.5 145.5 L65.1 144.4 L67.2 143.7 L69.3 143.3 L71.1 142.7 L72.2 141.7 L72.7 139.9 L72.7 137.6 L72.5 134.9 L72.5 132.2 L73.0 130.0 L74.2 128.6 L75.9 128.2 L77.9 128.4 L80.0 129.1 L82.0 129.5 L83.5 129.3 L84.5 128.2 L85.3 126.2 L85.9 123.6 L86.7 121.1 L87.7 119.1 L89.1 118.1 L90.8 118.2 L92.6 119.3 L94.4 120.8 L96.1 122.3 L97.5 123.1 L98.9 122.8 L100.2 121.6 L101.6 119.6 L103.0 117.6 L104.5 116.0 L106.1 115.4 L107.7 116.1 L109.0 117.7 L110.3 120.0 L111.4 122.2 L112.5 123.9 L113.8 124.6 L115.3 124.3 L117.1 123.2 L119.0 122.0 L121.0 121.1 L122.7 121.1 L124.0 122.1 L124.9 124.2 L125.4 126.8 L125.7 129.5 L126.2 131.7 L127.0 133.2 L128.4 133.8 L130.3 133.8 L132.4 133.6 L134.5 133.6 L136.3 134.2 L137.4 135.6 L137.7 137.8 L137.5 140.4 L137.0 143.0 L136.7 145.4 L136.8 147.3 L137.7 148.7 L139.3 149.7 L141.3 150.5 L143.3 151.4 L144.9 152.7 L145.7 154.5 L145.6 156.6 L144.8 158.9 L143.5 161.1 L142.4 163.2 L141.8 165.1 L142.0 166.8 L143.0 168.5 L144.5 170.2 L146.1 172.0 Z" fill="none" stroke="#7FB6C6" stroke-opacity=".6" stroke-width="1.1"/>
+            <path d="M103 114 V230" stroke="#0C2233" stroke-width="1.8"/>
+            <path d="M99 150 q-14 12 -7 34 q3 -15 8 -20 Z M107 150 q14 12 7 34 q-3 -15 -8 -20 Z" fill="#0C2233"/>
+            <!-- the question -->
+            <rect x="28" y="274" width="150" height="34" rx="2" fill="#FFFFFF" stroke="#0C2233" stroke-opacity=".22"/>
+            <text x="40" y="295" font-family="Space Mono, monospace" font-size="8" fill="#52707D"><tspan fill="#1F6E8C" font-weight="700">Q</tspan>  question on the scan</text>
+            <!-- inputs -->
+            <g fill="none" stroke="#0C2233" stroke-opacity=".6" stroke-width="1.1" marker-end="url(#nqArrow)">
+              <path d="M178 131 H256"/>
+              <path d="M178 285 C222 285 214 146 256 146"/>
+              <path d="M178 291 C218 291 222 277 256 277"/>
+              <path d="M430 131 H462"/>
+              <path d="M430 277 H462"/>
+            </g>
+            <!-- the two readers -->
+            <rect x="262" y="100" width="168" height="62" rx="2" fill="#FFFFFF" stroke="#1F6E8C" stroke-width="1.2"/>
+            <text x="276" y="127" font-family="Instrument Serif, Georgia, serif" font-size="18" fill="#0C2233">Ministral 3 · 3B</text>
+            <text x="276" y="147" font-family="Space Mono, monospace" font-size="8" letter-spacing=".6" fill="#1F6E8C">LoRA · SFT → GRPO</text>
+            <rect x="262" y="246" width="168" height="62" rx="2" fill="#FFFFFF" stroke="#0C2233" stroke-opacity=".3" stroke-dasharray="3 3"/>
+            <text x="276" y="273" font-family="Instrument Serif, Georgia, serif" font-size="18" fill="#0C2233">Blind control</text>
+            <text x="276" y="293" font-family="Space Mono, monospace" font-size="8" letter-spacing=".6" fill="#52707D">TEXT ONLY · NO SCAN</text>
+            <!-- answers, and the gap between them -->
+            <g font-family="Space Mono, monospace" font-size="8" fill="#0C2233" text-anchor="middle">
+              <rect x="468" y="116" width="76" height="30" rx="2" fill="#FFFFFF" stroke="#0C2233" stroke-opacity=".22"/>
+              <text x="506" y="134">answer</text>
+              <rect x="468" y="262" width="76" height="30" rx="2" fill="#FFFFFF" stroke="#0C2233" stroke-opacity=".22"/>
+              <text x="506" y="280">answer</text>
+            </g>
+            <path d="M552 131 H562 V277 H552" fill="none" stroke="#1F6E8C" stroke-width="1.2"/>
+            <text x="574" y="214" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="32" fill="#1F6E8C">Δ</text>
+            <text x="612" y="326" text-anchor="end" font-family="Space Mono, monospace" font-size="7.5" letter-spacing=".8" fill="#52707D">Δ = WHAT READING THE SCAN ADDS</text>
+          </svg>
+        </div>
+        <div class="project-body">
+          <span class="tag">Personal project · Multimodal post-training</span>
+          <h3>NeuroQA mini</h3>
+          <p>Post-training Ministral 3 (3B) on Stanford's NeuroQA brain-MRI challenge, with SFT and GRPO (LoRA) loops written from scratch in PyTorch and trained on RTX 3090 GPUs. Every result is checked against a blind, text-only control model, to tell whether the gains come from reading the scans or from text priors.</p>
+          <ul class="chips" aria-label="Stack">
+            <li>PyTorch</li><li>SFT</li><li>GRPO</li><li>LoRA</li><li>Brain MRI</li>
+          </ul>
+          <span class="project-link muted">In progress · since 10/2026</span>
+        </div>
+      </article>
+
       <article class="project" id="proj-eardrop">
         <div class="project-body">
           <span class="tag">Personal project · Audio ML</span>
@@ -505,5 +584,6 @@
 </footer>
 
 <script src="main.js?v=12"></script>
+<script src="brain.js?v=1"></script>
 </body>
 </html>
